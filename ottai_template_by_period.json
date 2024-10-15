@@ -1,0 +1,2899 @@
+{
+    "xRequestId": "0dcca286506844cda2925c2ac7e88c62",
+    "code": "OK",
+    "msg": null,
+    "detailMessage": null,
+    "data": {
+        "curveList": [
+            {
+                "adjustGlucose": 4.3000,
+                "dataNo": 12570,
+                "monitorTime": 1728738814879
+            },
+            {
+                "adjustGlucose": 3.9000,
+                "dataNo": 12575,
+                "monitorTime": 1728739114879
+            },
+            {
+                "adjustGlucose": 3.9000,
+                "dataNo": 12580,
+                "monitorTime": 1728739414879
+            },
+            {
+                "adjustGlucose": 4.0000,
+                "dataNo": 12585,
+                "monitorTime": 1728739714879
+            },
+            {
+                "adjustGlucose": 3.9000,
+                "dataNo": 12590,
+                "monitorTime": 1728740014879
+            },
+            {
+                "adjustGlucose": 4.0000,
+                "dataNo": 12595,
+                "monitorTime": 1728740314879
+            },
+            {
+                "adjustGlucose": 4.2000,
+                "dataNo": 12600,
+                "monitorTime": 1728740614879
+            },
+            {
+                "adjustGlucose": 4.0000,
+                "dataNo": 12605,
+                "monitorTime": 1728740914879
+            },
+            {
+                "adjustGlucose": 4.3000,
+                "dataNo": 12610,
+                "monitorTime": 1728741214879
+            },
+            {
+                "adjustGlucose": 4.1000,
+                "dataNo": 12615,
+                "monitorTime": 1728741514879
+            },
+            {
+                "adjustGlucose": 4.0000,
+                "dataNo": 12620,
+                "monitorTime": 1728741814879
+            },
+            {
+                "adjustGlucose": 3.9000,
+                "dataNo": 12625,
+                "monitorTime": 1728742114879
+            },
+            {
+                "adjustGlucose": 4.3000,
+                "dataNo": 12630,
+                "monitorTime": 1728742414879
+            },
+            {
+                "adjustGlucose": 4.6000,
+                "dataNo": 12635,
+                "monitorTime": 1728742714879
+            },
+            {
+                "adjustGlucose": 4.6000,
+                "dataNo": 12640,
+                "monitorTime": 1728743014879
+            },
+            {
+                "adjustGlucose": 4.9000,
+                "dataNo": 12645,
+                "monitorTime": 1728743314879
+            },
+            {
+                "adjustGlucose": 5.7000,
+                "dataNo": 12650,
+                "monitorTime": 1728743614879
+            },
+            {
+                "adjustGlucose": 6.3000,
+                "dataNo": 12655,
+                "monitorTime": 1728743914879
+            },
+            {
+                "adjustGlucose": 6.4000,
+                "dataNo": 12660,
+                "monitorTime": 1728744214879
+            },
+            {
+                "adjustGlucose": 6.1000,
+                "dataNo": 12665,
+                "monitorTime": 1728744514879
+            },
+            {
+                "adjustGlucose": 5.9000,
+                "dataNo": 12670,
+                "monitorTime": 1728744814879
+            },
+            {
+                "adjustGlucose": 5.8000,
+                "dataNo": 12675,
+                "monitorTime": 1728745114879
+            },
+            {
+                "adjustGlucose": 5.9000,
+                "dataNo": 12680,
+                "monitorTime": 1728745414879
+            },
+            {
+                "adjustGlucose": 5.7000,
+                "dataNo": 12685,
+                "monitorTime": 1728745714879
+            },
+            {
+                "adjustGlucose": 5.7000,
+                "dataNo": 12690,
+                "monitorTime": 1728746014879
+            },
+            {
+                "adjustGlucose": 5.5000,
+                "dataNo": 12695,
+                "monitorTime": 1728746314879
+            },
+            {
+                "adjustGlucose": 5.2000,
+                "dataNo": 12700,
+                "monitorTime": 1728746614879
+            },
+            {
+                "adjustGlucose": 5.0000,
+                "dataNo": 12705,
+                "monitorTime": 1728746914879
+            },
+            {
+                "adjustGlucose": 4.7000,
+                "dataNo": 12710,
+                "monitorTime": 1728747214879
+            },
+            {
+                "adjustGlucose": 4.5000,
+                "dataNo": 12715,
+                "monitorTime": 1728747514879
+            },
+            {
+                "adjustGlucose": 4.3000,
+                "dataNo": 12720,
+                "monitorTime": 1728747814879
+            },
+            {
+                "adjustGlucose": 4.2000,
+                "dataNo": 12725,
+                "monitorTime": 1728748114879
+            },
+            {
+                "adjustGlucose": 4.1000,
+                "dataNo": 12730,
+                "monitorTime": 1728748414879
+            },
+            {
+                "adjustGlucose": 4.3000,
+                "dataNo": 12735,
+                "monitorTime": 1728748714879
+            },
+            {
+                "adjustGlucose": 4.5000,
+                "dataNo": 12740,
+                "monitorTime": 1728749014879
+            },
+            {
+                "adjustGlucose": 4.8000,
+                "dataNo": 12745,
+                "monitorTime": 1728749314879
+            },
+            {
+                "adjustGlucose": 5.4000,
+                "dataNo": 12750,
+                "monitorTime": 1728749614879
+            },
+            {
+                "adjustGlucose": 4.9000,
+                "dataNo": 12755,
+                "monitorTime": 1728749914879
+            },
+            {
+                "adjustGlucose": 5.3000,
+                "dataNo": 12760,
+                "monitorTime": 1728750214879
+            },
+            {
+                "adjustGlucose": 5.1000,
+                "dataNo": 12765,
+                "monitorTime": 1728750514879
+            },
+            {
+                "adjustGlucose": 5.0000,
+                "dataNo": 12770,
+                "monitorTime": 1728750814879
+            },
+            {
+                "adjustGlucose": 5.1000,
+                "dataNo": 12775,
+                "monitorTime": 1728751114879
+            },
+            {
+                "adjustGlucose": 5.3000,
+                "dataNo": 12780,
+                "monitorTime": 1728751414879
+            },
+            {
+                "adjustGlucose": 5.2000,
+                "dataNo": 12785,
+                "monitorTime": 1728751714879
+            },
+            {
+                "adjustGlucose": 5.1000,
+                "dataNo": 12790,
+                "monitorTime": 1728752014879
+            },
+            {
+                "adjustGlucose": 5.1000,
+                "dataNo": 12795,
+                "monitorTime": 1728752314879
+            },
+            {
+                "adjustGlucose": 4.9000,
+                "dataNo": 12800,
+                "monitorTime": 1728752614879
+            },
+            {
+                "adjustGlucose": 4.8000,
+                "dataNo": 12805,
+                "monitorTime": 1728752914879
+            },
+            {
+                "adjustGlucose": 5.0000,
+                "dataNo": 12810,
+                "monitorTime": 1728753214879
+            },
+            {
+                "adjustGlucose": 4.9000,
+                "dataNo": 12815,
+                "monitorTime": 1728753514879
+            },
+            {
+                "adjustGlucose": 5.2000,
+                "dataNo": 12820,
+                "monitorTime": 1728753814879
+            },
+            {
+                "adjustGlucose": 5.4000,
+                "dataNo": 12825,
+                "monitorTime": 1728754114879
+            },
+            {
+                "adjustGlucose": 5.1000,
+                "dataNo": 12830,
+                "monitorTime": 1728754414879
+            },
+            {
+                "adjustGlucose": 4.8000,
+                "dataNo": 12835,
+                "monitorTime": 1728754714879
+            },
+            {
+                "adjustGlucose": 5.0000,
+                "dataNo": 12840,
+                "monitorTime": 1728755014879
+            },
+            {
+                "adjustGlucose": 5.2000,
+                "dataNo": 12845,
+                "monitorTime": 1728755314879
+            },
+            {
+                "adjustGlucose": 5.4000,
+                "dataNo": 12850,
+                "monitorTime": 1728755614879
+            },
+            {
+                "adjustGlucose": 5.4000,
+                "dataNo": 12855,
+                "monitorTime": 1728755914879
+            },
+            {
+                "adjustGlucose": 5.6000,
+                "dataNo": 12860,
+                "monitorTime": 1728756214879
+            },
+            {
+                "adjustGlucose": 5.7000,
+                "dataNo": 12865,
+                "monitorTime": 1728756514879
+            },
+            {
+                "adjustGlucose": 5.8000,
+                "dataNo": 12870,
+                "monitorTime": 1728756814879
+            },
+            {
+                "adjustGlucose": 5.8000,
+                "dataNo": 12875,
+                "monitorTime": 1728757114879
+            },
+            {
+                "adjustGlucose": 5.8000,
+                "dataNo": 12880,
+                "monitorTime": 1728757414879
+            },
+            {
+                "adjustGlucose": 6.1000,
+                "dataNo": 12885,
+                "monitorTime": 1728757714879
+            },
+            {
+                "adjustGlucose": 5.7000,
+                "dataNo": 12890,
+                "monitorTime": 1728758014879
+            },
+            {
+                "adjustGlucose": 5.8000,
+                "dataNo": 12895,
+                "monitorTime": 1728758314879
+            },
+            {
+                "adjustGlucose": 5.6000,
+                "dataNo": 12900,
+                "monitorTime": 1728758614879
+            },
+            {
+                "adjustGlucose": 5.5000,
+                "dataNo": 12905,
+                "monitorTime": 1728758914879
+            },
+            {
+                "adjustGlucose": 6.1000,
+                "dataNo": 12910,
+                "monitorTime": 1728759214879
+            },
+            {
+                "adjustGlucose": 5.2000,
+                "dataNo": 12915,
+                "monitorTime": 1728759514879
+            },
+            {
+                "adjustGlucose": 5.0000,
+                "dataNo": 12920,
+                "monitorTime": 1728759814879
+            },
+            {
+                "adjustGlucose": 4.2000,
+                "dataNo": 12925,
+                "monitorTime": 1728760114879
+            },
+            {
+                "adjustGlucose": 4.2000,
+                "dataNo": 12930,
+                "monitorTime": 1728760414879
+            },
+            {
+                "adjustGlucose": 4.5000,
+                "dataNo": 12935,
+                "monitorTime": 1728760714879
+            },
+            {
+                "adjustGlucose": 4.0000,
+                "dataNo": 12940,
+                "monitorTime": 1728761014879
+            },
+            {
+                "adjustGlucose": 3.6000,
+                "dataNo": 12945,
+                "monitorTime": 1728761314879
+            },
+            {
+                "adjustGlucose": 3.4000,
+                "dataNo": 12950,
+                "monitorTime": 1728761614879
+            },
+            {
+                "adjustGlucose": 3.2000,
+                "dataNo": 12955,
+                "monitorTime": 1728761914879
+            },
+            {
+                "adjustGlucose": 3.1000,
+                "dataNo": 12960,
+                "monitorTime": 1728762214879
+            },
+            {
+                "adjustGlucose": 2.5000,
+                "dataNo": 12965,
+                "monitorTime": 1728762514879
+            },
+            {
+                "adjustGlucose": 2.2000,
+                "dataNo": 12970,
+                "monitorTime": 1728762814879
+            },
+            {
+                "adjustGlucose": 2.1000,
+                "dataNo": 12975,
+                "monitorTime": 1728763114879
+            },
+            {
+                "adjustGlucose": 2.0000,
+                "dataNo": 12980,
+                "monitorTime": 1728763414879
+            },
+            {
+                "adjustGlucose": 2.1000,
+                "dataNo": 12985,
+                "monitorTime": 1728763714879
+            },
+            {
+                "adjustGlucose": 2.2000,
+                "dataNo": 12990,
+                "monitorTime": 1728764014879
+            },
+            {
+                "adjustGlucose": 2.2000,
+                "dataNo": 12995,
+                "monitorTime": 1728764314879
+            },
+            {
+                "adjustGlucose": 2.2000,
+                "dataNo": 13000,
+                "monitorTime": 1728764614879
+            },
+            {
+                "adjustGlucose": 2.6000,
+                "dataNo": 13005,
+                "monitorTime": 1728764914879
+            },
+            {
+                "adjustGlucose": 2.7000,
+                "dataNo": 13010,
+                "monitorTime": 1728765214879
+            },
+            {
+                "adjustGlucose": 3.0000,
+                "dataNo": 13015,
+                "monitorTime": 1728765514879
+            },
+            {
+                "adjustGlucose": 3.0000,
+                "dataNo": 13020,
+                "monitorTime": 1728765814879
+            },
+            {
+                "adjustGlucose": 3.3000,
+                "dataNo": 13025,
+                "monitorTime": 1728766114879
+            },
+            {
+                "adjustGlucose": 3.6000,
+                "dataNo": 13030,
+                "monitorTime": 1728766414879
+            },
+            {
+                "adjustGlucose": 3.4000,
+                "dataNo": 13035,
+                "monitorTime": 1728766714879
+            },
+            {
+                "adjustGlucose": 3.5000,
+                "dataNo": 13040,
+                "monitorTime": 1728767014879
+            },
+            {
+                "adjustGlucose": 3.7000,
+                "dataNo": 13045,
+                "monitorTime": 1728767314879
+            },
+            {
+                "adjustGlucose": 3.7000,
+                "dataNo": 13050,
+                "monitorTime": 1728767614879
+            },
+            {
+                "adjustGlucose": 3.4000,
+                "dataNo": 13055,
+                "monitorTime": 1728767914879
+            },
+            {
+                "adjustGlucose": 3.5000,
+                "dataNo": 13060,
+                "monitorTime": 1728768214879
+            },
+            {
+                "adjustGlucose": 3.4000,
+                "dataNo": 13065,
+                "monitorTime": 1728768514879
+            },
+            {
+                "adjustGlucose": 3.2000,
+                "dataNo": 13070,
+                "monitorTime": 1728768814879
+            },
+            {
+                "adjustGlucose": 3.2000,
+                "dataNo": 13075,
+                "monitorTime": 1728769114879
+            },
+            {
+                "adjustGlucose": 3.1000,
+                "dataNo": 13080,
+                "monitorTime": 1728769414879
+            },
+            {
+                "adjustGlucose": 3.1000,
+                "dataNo": 13085,
+                "monitorTime": 1728769714879
+            },
+            {
+                "adjustGlucose": 3.3000,
+                "dataNo": 13090,
+                "monitorTime": 1728770014879
+            },
+            {
+                "adjustGlucose": 4.1000,
+                "dataNo": 13095,
+                "monitorTime": 1728770314879
+            },
+            {
+                "adjustGlucose": 4.8000,
+                "dataNo": 13100,
+                "monitorTime": 1728770614879
+            },
+            {
+                "adjustGlucose": 4.7000,
+                "dataNo": 13105,
+                "monitorTime": 1728770914879
+            },
+            {
+                "adjustGlucose": 5.1000,
+                "dataNo": 13110,
+                "monitorTime": 1728771214879
+            },
+            {
+                "adjustGlucose": 5.2000,
+                "dataNo": 13115,
+                "monitorTime": 1728771514879
+            },
+            {
+                "adjustGlucose": 5.8000,
+                "dataNo": 13120,
+                "monitorTime": 1728771814879
+            },
+            {
+                "adjustGlucose": 6.6000,
+                "dataNo": 13125,
+                "monitorTime": 1728772114879
+            },
+            {
+                "adjustGlucose": 7.5000,
+                "dataNo": 13130,
+                "monitorTime": 1728772414879
+            },
+            {
+                "adjustGlucose": 8.4000,
+                "dataNo": 13135,
+                "monitorTime": 1728772714879
+            },
+            {
+                "adjustGlucose": 9.0000,
+                "dataNo": 13140,
+                "monitorTime": 1728773014879
+            },
+            {
+                "adjustGlucose": 10.8000,
+                "dataNo": 13145,
+                "monitorTime": 1728773314879
+            },
+            {
+                "adjustGlucose": 12.1000,
+                "dataNo": 13150,
+                "monitorTime": 1728773614879
+            },
+            {
+                "adjustGlucose": 13.0000,
+                "dataNo": 13155,
+                "monitorTime": 1728773914879
+            },
+            {
+                "adjustGlucose": 15.3000,
+                "dataNo": 13160,
+                "monitorTime": 1728774214879
+            },
+            {
+                "adjustGlucose": 15.0000,
+                "dataNo": 13165,
+                "monitorTime": 1728774514879
+            },
+            {
+                "adjustGlucose": 14.8000,
+                "dataNo": 13170,
+                "monitorTime": 1728774814879
+            },
+            {
+                "adjustGlucose": 14.6000,
+                "dataNo": 13175,
+                "monitorTime": 1728775114879
+            },
+            {
+                "adjustGlucose": 14.8000,
+                "dataNo": 13180,
+                "monitorTime": 1728775414879
+            },
+            {
+                "adjustGlucose": 14.6000,
+                "dataNo": 13185,
+                "monitorTime": 1728775714879
+            },
+            {
+                "adjustGlucose": 13.8000,
+                "dataNo": 13190,
+                "monitorTime": 1728776014879
+            },
+            {
+                "adjustGlucose": 13.5000,
+                "dataNo": 13195,
+                "monitorTime": 1728776314879
+            },
+            {
+                "adjustGlucose": 13.2000,
+                "dataNo": 13200,
+                "monitorTime": 1728776614879
+            },
+            {
+                "adjustGlucose": 13.0000,
+                "dataNo": 13205,
+                "monitorTime": 1728776914879
+            },
+            {
+                "adjustGlucose": 12.9000,
+                "dataNo": 13210,
+                "monitorTime": 1728777214879
+            },
+            {
+                "adjustGlucose": 13.1000,
+                "dataNo": 13215,
+                "monitorTime": 1728777514879
+            },
+            {
+                "adjustGlucose": 14.0000,
+                "dataNo": 13220,
+                "monitorTime": 1728777814879
+            },
+            {
+                "adjustGlucose": 14.0000,
+                "dataNo": 13225,
+                "monitorTime": 1728778114879
+            },
+            {
+                "adjustGlucose": 14.4000,
+                "dataNo": 13230,
+                "monitorTime": 1728778414879
+            },
+            {
+                "adjustGlucose": 14.7000,
+                "dataNo": 13235,
+                "monitorTime": 1728778714879
+            },
+            {
+                "adjustGlucose": 14.8000,
+                "dataNo": 13240,
+                "monitorTime": 1728779014879
+            },
+            {
+                "adjustGlucose": 14.8000,
+                "dataNo": 13245,
+                "monitorTime": 1728779314879
+            },
+            {
+                "adjustGlucose": 14.7000,
+                "dataNo": 13250,
+                "monitorTime": 1728779614879
+            },
+            {
+                "adjustGlucose": 14.4000,
+                "dataNo": 13255,
+                "monitorTime": 1728779914879
+            },
+            {
+                "adjustGlucose": 14.3000,
+                "dataNo": 13260,
+                "monitorTime": 1728780214879
+            },
+            {
+                "adjustGlucose": 14.5000,
+                "dataNo": 13265,
+                "monitorTime": 1728780514879
+            },
+            {
+                "adjustGlucose": 14.8000,
+                "dataNo": 13270,
+                "monitorTime": 1728780814879
+            },
+            {
+                "adjustGlucose": 14.9000,
+                "dataNo": 13275,
+                "monitorTime": 1728781114879
+            },
+            {
+                "adjustGlucose": 16.8000,
+                "dataNo": 13280,
+                "monitorTime": 1728781414879
+            },
+            {
+                "adjustGlucose": 15.2000,
+                "dataNo": 13285,
+                "monitorTime": 1728781714879
+            },
+            {
+                "adjustGlucose": 16.5000,
+                "dataNo": 13290,
+                "monitorTime": 1728782014879
+            },
+            {
+                "adjustGlucose": 16.0000,
+                "dataNo": 13295,
+                "monitorTime": 1728782314879
+            },
+            {
+                "adjustGlucose": 15.8000,
+                "dataNo": 13300,
+                "monitorTime": 1728782614879
+            },
+            {
+                "adjustGlucose": 15.8000,
+                "dataNo": 13305,
+                "monitorTime": 1728782914879
+            },
+            {
+                "adjustGlucose": 16.5000,
+                "dataNo": 13310,
+                "monitorTime": 1728783214879
+            },
+            {
+                "adjustGlucose": 15.5000,
+                "dataNo": 13315,
+                "monitorTime": 1728783514879
+            },
+            {
+                "adjustGlucose": 15.0000,
+                "dataNo": 13320,
+                "monitorTime": 1728783814879
+            },
+            {
+                "adjustGlucose": 14.5000,
+                "dataNo": 13325,
+                "monitorTime": 1728784114879
+            },
+            {
+                "adjustGlucose": 14.3000,
+                "dataNo": 13330,
+                "monitorTime": 1728784414879
+            },
+            {
+                "adjustGlucose": 16.1000,
+                "dataNo": 13335,
+                "monitorTime": 1728784714879
+            },
+            {
+                "adjustGlucose": 15.3000,
+                "dataNo": 13340,
+                "monitorTime": 1728785014879
+            },
+            {
+                "adjustGlucose": 14.9000,
+                "dataNo": 13345,
+                "monitorTime": 1728785314879
+            },
+            {
+                "adjustGlucose": 14.0000,
+                "dataNo": 13350,
+                "monitorTime": 1728785614879
+            },
+            {
+                "adjustGlucose": 13.8000,
+                "dataNo": 13355,
+                "monitorTime": 1728785914879
+            },
+            {
+                "adjustGlucose": 14.0000,
+                "dataNo": 13360,
+                "monitorTime": 1728786214879
+            },
+            {
+                "adjustGlucose": 14.1000,
+                "dataNo": 13365,
+                "monitorTime": 1728786514879
+            },
+            {
+                "adjustGlucose": 14.2000,
+                "dataNo": 13370,
+                "monitorTime": 1728786814879
+            },
+            {
+                "adjustGlucose": 14.1000,
+                "dataNo": 13375,
+                "monitorTime": 1728787114879
+            },
+            {
+                "adjustGlucose": 14.2000,
+                "dataNo": 13380,
+                "monitorTime": 1728787414879
+            },
+            {
+                "adjustGlucose": 14.2000,
+                "dataNo": 13385,
+                "monitorTime": 1728787714879
+            },
+            {
+                "adjustGlucose": 14.4000,
+                "dataNo": 13390,
+                "monitorTime": 1728788014879
+            },
+            {
+                "adjustGlucose": 14.5000,
+                "dataNo": 13395,
+                "monitorTime": 1728788314879
+            },
+            {
+                "adjustGlucose": 15.4000,
+                "dataNo": 13400,
+                "monitorTime": 1728788614879
+            },
+            {
+                "adjustGlucose": 14.9000,
+                "dataNo": 13405,
+                "monitorTime": 1728788914879
+            },
+            {
+                "adjustGlucose": 14.6000,
+                "dataNo": 13410,
+                "monitorTime": 1728789214879
+            },
+            {
+                "adjustGlucose": 15.5000,
+                "dataNo": 13415,
+                "monitorTime": 1728789514879
+            },
+            {
+                "adjustGlucose": 15.1000,
+                "dataNo": 13420,
+                "monitorTime": 1728789814879
+            },
+            {
+                "adjustGlucose": 14.7000,
+                "dataNo": 13425,
+                "monitorTime": 1728790114879
+            },
+            {
+                "adjustGlucose": 14.6000,
+                "dataNo": 13430,
+                "monitorTime": 1728790414879
+            },
+            {
+                "adjustGlucose": 14.5000,
+                "dataNo": 13435,
+                "monitorTime": 1728790714879
+            },
+            {
+                "adjustGlucose": 14.4000,
+                "dataNo": 13440,
+                "monitorTime": 1728791014879
+            },
+            {
+                "adjustGlucose": 14.5000,
+                "dataNo": 13445,
+                "monitorTime": 1728791314879
+            },
+            {
+                "adjustGlucose": 14.2000,
+                "dataNo": 13450,
+                "monitorTime": 1728791614879
+            },
+            {
+                "adjustGlucose": 14.9000,
+                "dataNo": 13455,
+                "monitorTime": 1728791914879
+            },
+            {
+                "adjustGlucose": 13.3000,
+                "dataNo": 13460,
+                "monitorTime": 1728792214879
+            },
+            {
+                "adjustGlucose": 14.8000,
+                "dataNo": 13465,
+                "monitorTime": 1728792514879
+            },
+            {
+                "adjustGlucose": 14.4000,
+                "dataNo": 13470,
+                "monitorTime": 1728792814879
+            },
+            {
+                "adjustGlucose": 13.0000,
+                "dataNo": 13475,
+                "monitorTime": 1728793114879
+            },
+            {
+                "adjustGlucose": 13.0000,
+                "dataNo": 13480,
+                "monitorTime": 1728793414879
+            },
+            {
+                "adjustGlucose": 12.8000,
+                "dataNo": 13485,
+                "monitorTime": 1728793714879
+            },
+            {
+                "adjustGlucose": 13.2000,
+                "dataNo": 13490,
+                "monitorTime": 1728794014879
+            },
+            {
+                "adjustGlucose": 14.2000,
+                "dataNo": 13495,
+                "monitorTime": 1728794314879
+            },
+            {
+                "adjustGlucose": 13.1000,
+                "dataNo": 13500,
+                "monitorTime": 1728794614879
+            },
+            {
+                "adjustGlucose": 11.4000,
+                "dataNo": 13505,
+                "monitorTime": 1728794914879
+            },
+            {
+                "adjustGlucose": 10.9000,
+                "dataNo": 13510,
+                "monitorTime": 1728795214879
+            },
+            {
+                "adjustGlucose": 9.7000,
+                "dataNo": 13515,
+                "monitorTime": 1728795514879
+            },
+            {
+                "adjustGlucose": 8.9000,
+                "dataNo": 13520,
+                "monitorTime": 1728795814879
+            },
+            {
+                "adjustGlucose": 8.0000,
+                "dataNo": 13525,
+                "monitorTime": 1728796114879
+            },
+            {
+                "adjustGlucose": 7.4000,
+                "dataNo": 13530,
+                "monitorTime": 1728796414879
+            },
+            {
+                "adjustGlucose": 6.7000,
+                "dataNo": 13535,
+                "monitorTime": 1728796714879
+            },
+            {
+                "adjustGlucose": 6.6000,
+                "dataNo": 13540,
+                "monitorTime": 1728797014879
+            },
+            {
+                "adjustGlucose": 6.2000,
+                "dataNo": 13545,
+                "monitorTime": 1728797314879
+            },
+            {
+                "adjustGlucose": 6.1000,
+                "dataNo": 13550,
+                "monitorTime": 1728797614879
+            },
+            {
+                "adjustGlucose": 6.0000,
+                "dataNo": 13555,
+                "monitorTime": 1728797914879
+            },
+            {
+                "adjustGlucose": 5.8000,
+                "dataNo": 13560,
+                "monitorTime": 1728798214879
+            },
+            {
+                "adjustGlucose": 5.6000,
+                "dataNo": 13565,
+                "monitorTime": 1728798514879
+            },
+            {
+                "adjustGlucose": 5.2000,
+                "dataNo": 13570,
+                "monitorTime": 1728798814879
+            },
+            {
+                "adjustGlucose": 5.4000,
+                "dataNo": 13575,
+                "monitorTime": 1728799114879
+            },
+            {
+                "adjustGlucose": 6.1000,
+                "dataNo": 13580,
+                "monitorTime": 1728799414879
+            },
+            {
+                "adjustGlucose": 6.3000,
+                "dataNo": 13585,
+                "monitorTime": 1728799714879
+            },
+            {
+                "adjustGlucose": 5.7000,
+                "dataNo": 13590,
+                "monitorTime": 1728800014879
+            },
+            {
+                "adjustGlucose": 5.2000,
+                "dataNo": 13595,
+                "monitorTime": 1728800314879
+            },
+            {
+                "adjustGlucose": 5.0000,
+                "dataNo": 13600,
+                "monitorTime": 1728800614879
+            },
+            {
+                "adjustGlucose": 4.8000,
+                "dataNo": 13605,
+                "monitorTime": 1728800914879
+            },
+            {
+                "adjustGlucose": 4.8000,
+                "dataNo": 13610,
+                "monitorTime": 1728801214879
+            },
+            {
+                "adjustGlucose": 5.2000,
+                "dataNo": 13615,
+                "monitorTime": 1728801514879
+            },
+            {
+                "adjustGlucose": 5.0000,
+                "dataNo": 13620,
+                "monitorTime": 1728801814879
+            },
+            {
+                "adjustGlucose": 4.8000,
+                "dataNo": 13625,
+                "monitorTime": 1728802114879
+            },
+            {
+                "adjustGlucose": 5.0000,
+                "dataNo": 13630,
+                "monitorTime": 1728802414879
+            },
+            {
+                "adjustGlucose": 5.4000,
+                "dataNo": 13635,
+                "monitorTime": 1728802714879
+            },
+            {
+                "adjustGlucose": 5.2000,
+                "dataNo": 13640,
+                "monitorTime": 1728803014879
+            },
+            {
+                "adjustGlucose": 5.1000,
+                "dataNo": 13645,
+                "monitorTime": 1728803314879
+            },
+            {
+                "adjustGlucose": 4.8000,
+                "dataNo": 13650,
+                "monitorTime": 1728803614879
+            },
+            {
+                "adjustGlucose": 4.6000,
+                "dataNo": 13655,
+                "monitorTime": 1728803914879
+            },
+            {
+                "adjustGlucose": 4.5000,
+                "dataNo": 13660,
+                "monitorTime": 1728804214879
+            },
+            {
+                "adjustGlucose": 4.5000,
+                "dataNo": 13665,
+                "monitorTime": 1728804514879
+            },
+            {
+                "adjustGlucose": 4.3000,
+                "dataNo": 13670,
+                "monitorTime": 1728804814879
+            },
+            {
+                "adjustGlucose": 4.3000,
+                "dataNo": 13675,
+                "monitorTime": 1728805114879
+            },
+            {
+                "adjustGlucose": 4.0000,
+                "dataNo": 13680,
+                "monitorTime": 1728805414879
+            },
+            {
+                "adjustGlucose": 4.0000,
+                "dataNo": 13685,
+                "monitorTime": 1728805714879
+            },
+            {
+                "adjustGlucose": 3.9000,
+                "dataNo": 13690,
+                "monitorTime": 1728806014879
+            },
+            {
+                "adjustGlucose": 3.7000,
+                "dataNo": 13695,
+                "monitorTime": 1728806314879
+            },
+            {
+                "adjustGlucose": 3.7000,
+                "dataNo": 13700,
+                "monitorTime": 1728806614879
+            },
+            {
+                "adjustGlucose": 3.8000,
+                "dataNo": 13705,
+                "monitorTime": 1728806914879
+            },
+            {
+                "adjustGlucose": 4.2000,
+                "dataNo": 13710,
+                "monitorTime": 1728807214879
+            },
+            {
+                "adjustGlucose": 4.0000,
+                "dataNo": 13715,
+                "monitorTime": 1728807514879
+            },
+            {
+                "adjustGlucose": 4.6000,
+                "dataNo": 13720,
+                "monitorTime": 1728807814879
+            },
+            {
+                "adjustGlucose": 5.3000,
+                "dataNo": 13725,
+                "monitorTime": 1728808114879
+            },
+            {
+                "adjustGlucose": 5.3000,
+                "dataNo": 13730,
+                "monitorTime": 1728808414879
+            },
+            {
+                "adjustGlucose": 6.1000,
+                "dataNo": 13735,
+                "monitorTime": 1728808714879
+            },
+            {
+                "adjustGlucose": 6.3000,
+                "dataNo": 13740,
+                "monitorTime": 1728809014879
+            },
+            {
+                "adjustGlucose": 6.1000,
+                "dataNo": 13745,
+                "monitorTime": 1728809314879
+            },
+            {
+                "adjustGlucose": 5.8000,
+                "dataNo": 13750,
+                "monitorTime": 1728809614879
+            },
+            {
+                "adjustGlucose": 5.6000,
+                "dataNo": 13755,
+                "monitorTime": 1728809914879
+            },
+            {
+                "adjustGlucose": 5.3000,
+                "dataNo": 13760,
+                "monitorTime": 1728810214879
+            },
+            {
+                "adjustGlucose": 5.1000,
+                "dataNo": 13765,
+                "monitorTime": 1728810514879
+            },
+            {
+                "adjustGlucose": 4.8000,
+                "dataNo": 13770,
+                "monitorTime": 1728810814879
+            },
+            {
+                "adjustGlucose": 4.6000,
+                "dataNo": 13775,
+                "monitorTime": 1728811114879
+            },
+            {
+                "adjustGlucose": 4.2000,
+                "dataNo": 13780,
+                "monitorTime": 1728811414879
+            },
+            {
+                "adjustGlucose": 4.1000,
+                "dataNo": 13785,
+                "monitorTime": 1728811714879
+            },
+            {
+                "adjustGlucose": 4.2000,
+                "dataNo": 13790,
+                "monitorTime": 1728812014879
+            },
+            {
+                "adjustGlucose": 3.9000,
+                "dataNo": 13795,
+                "monitorTime": 1728812314879
+            },
+            {
+                "adjustGlucose": 4.3000,
+                "dataNo": 13800,
+                "monitorTime": 1728812614879
+            },
+            {
+                "adjustGlucose": 4.8000,
+                "dataNo": 13805,
+                "monitorTime": 1728812914879
+            },
+            {
+                "adjustGlucose": 5.6000,
+                "dataNo": 13810,
+                "monitorTime": 1728813214879
+            },
+            {
+                "adjustGlucose": 6.4000,
+                "dataNo": 13815,
+                "monitorTime": 1728813514879
+            },
+            {
+                "adjustGlucose": 7.3000,
+                "dataNo": 13820,
+                "monitorTime": 1728813814879
+            },
+            {
+                "adjustGlucose": 8.7000,
+                "dataNo": 13825,
+                "monitorTime": 1728814114879
+            },
+            {
+                "adjustGlucose": 9.2000,
+                "dataNo": 13830,
+                "monitorTime": 1728814414879
+            },
+            {
+                "adjustGlucose": 9.6000,
+                "dataNo": 13835,
+                "monitorTime": 1728814714879
+            },
+            {
+                "adjustGlucose": 9.8000,
+                "dataNo": 13840,
+                "monitorTime": 1728815014879
+            },
+            {
+                "adjustGlucose": 10.9000,
+                "dataNo": 13845,
+                "monitorTime": 1728815314879
+            },
+            {
+                "adjustGlucose": 10.4000,
+                "dataNo": 13850,
+                "monitorTime": 1728815614879
+            },
+            {
+                "adjustGlucose": 11.2000,
+                "dataNo": 13855,
+                "monitorTime": 1728815914879
+            },
+            {
+                "adjustGlucose": 11.0000,
+                "dataNo": 13860,
+                "monitorTime": 1728816214879
+            },
+            {
+                "adjustGlucose": 9.9000,
+                "dataNo": 13865,
+                "monitorTime": 1728816514879
+            },
+            {
+                "adjustGlucose": 9.4000,
+                "dataNo": 13870,
+                "monitorTime": 1728816814879
+            },
+            {
+                "adjustGlucose": 8.4000,
+                "dataNo": 13875,
+                "monitorTime": 1728817114879
+            },
+            {
+                "adjustGlucose": 8.0000,
+                "dataNo": 13880,
+                "monitorTime": 1728817414879
+            },
+            {
+                "adjustGlucose": 7.6000,
+                "dataNo": 13885,
+                "monitorTime": 1728817714879
+            },
+            {
+                "adjustGlucose": 7.0000,
+                "dataNo": 13890,
+                "monitorTime": 1728818014879
+            },
+            {
+                "adjustGlucose": 6.7000,
+                "dataNo": 13895,
+                "monitorTime": 1728818314879
+            },
+            {
+                "adjustGlucose": 6.4000,
+                "dataNo": 13900,
+                "monitorTime": 1728818614879
+            },
+            {
+                "adjustGlucose": 6.0000,
+                "dataNo": 13905,
+                "monitorTime": 1728818914879
+            },
+            {
+                "adjustGlucose": 5.5000,
+                "dataNo": 13910,
+                "monitorTime": 1728819214879
+            },
+            {
+                "adjustGlucose": 5.2000,
+                "dataNo": 13915,
+                "monitorTime": 1728819514879
+            },
+            {
+                "adjustGlucose": 4.8000,
+                "dataNo": 13920,
+                "monitorTime": 1728819814879
+            },
+            {
+                "adjustGlucose": 4.7000,
+                "dataNo": 13925,
+                "monitorTime": 1728820114879
+            },
+            {
+                "adjustGlucose": 4.5000,
+                "dataNo": 13930,
+                "monitorTime": 1728820414879
+            },
+            {
+                "adjustGlucose": 4.6000,
+                "dataNo": 13935,
+                "monitorTime": 1728820714879
+            },
+            {
+                "adjustGlucose": 4.5000,
+                "dataNo": 13940,
+                "monitorTime": 1728821014879
+            },
+            {
+                "adjustGlucose": 4.4000,
+                "dataNo": 13945,
+                "monitorTime": 1728821314879
+            },
+            {
+                "adjustGlucose": 4.3000,
+                "dataNo": 13950,
+                "monitorTime": 1728821614879
+            },
+            {
+                "adjustGlucose": 4.3000,
+                "dataNo": 13955,
+                "monitorTime": 1728821914879
+            },
+            {
+                "adjustGlucose": 4.5000,
+                "dataNo": 13960,
+                "monitorTime": 1728822214879
+            },
+            {
+                "adjustGlucose": 4.9000,
+                "dataNo": 13965,
+                "monitorTime": 1728822514879
+            },
+            {
+                "adjustGlucose": 5.3000,
+                "dataNo": 13970,
+                "monitorTime": 1728822814879
+            },
+            {
+                "adjustGlucose": 5.4000,
+                "dataNo": 13975,
+                "monitorTime": 1728823114879
+            },
+            {
+                "adjustGlucose": 5.2000,
+                "dataNo": 13980,
+                "monitorTime": 1728823414879
+            },
+            {
+                "adjustGlucose": 4.8000,
+                "dataNo": 13985,
+                "monitorTime": 1728823714879
+            },
+            {
+                "adjustGlucose": 4.7000,
+                "dataNo": 13990,
+                "monitorTime": 1728824014879
+            },
+            {
+                "adjustGlucose": 4.2000,
+                "dataNo": 13995,
+                "monitorTime": 1728824314879
+            },
+            {
+                "adjustGlucose": 4.3000,
+                "dataNo": 14000,
+                "monitorTime": 1728824614879
+            },
+            {
+                "adjustGlucose": 4.0000,
+                "dataNo": 14005,
+                "monitorTime": 1728824914879
+            },
+            {
+                "adjustGlucose": 3.7000,
+                "dataNo": 14010,
+                "monitorTime": 1728825214879
+            },
+            {
+                "adjustGlucose": 3.7000,
+                "dataNo": 14015,
+                "monitorTime": 1728825514879
+            },
+            {
+                "adjustGlucose": 3.7000,
+                "dataNo": 14020,
+                "monitorTime": 1728825814879
+            },
+            {
+                "adjustGlucose": 3.8000,
+                "dataNo": 14025,
+                "monitorTime": 1728826114879
+            },
+            {
+                "adjustGlucose": 3.9000,
+                "dataNo": 14030,
+                "monitorTime": 1728826414879
+            },
+            {
+                "adjustGlucose": 4.2000,
+                "dataNo": 14035,
+                "monitorTime": 1728826714879
+            },
+            {
+                "adjustGlucose": 4.5000,
+                "dataNo": 14040,
+                "monitorTime": 1728827014879
+            },
+            {
+                "adjustGlucose": 4.6000,
+                "dataNo": 14045,
+                "monitorTime": 1728827314879
+            },
+            {
+                "adjustGlucose": 4.9000,
+                "dataNo": 14050,
+                "monitorTime": 1728827614879
+            },
+            {
+                "adjustGlucose": 4.9000,
+                "dataNo": 14055,
+                "monitorTime": 1728827914879
+            },
+            {
+                "adjustGlucose": 5.2000,
+                "dataNo": 14060,
+                "monitorTime": 1728828214879
+            },
+            {
+                "adjustGlucose": 5.2000,
+                "dataNo": 14065,
+                "monitorTime": 1728828514879
+            },
+            {
+                "adjustGlucose": 4.8000,
+                "dataNo": 14070,
+                "monitorTime": 1728828814879
+            },
+            {
+                "adjustGlucose": 4.8000,
+                "dataNo": 14075,
+                "monitorTime": 1728829114879
+            },
+            {
+                "adjustGlucose": 4.6000,
+                "dataNo": 14080,
+                "monitorTime": 1728829414879
+            },
+            {
+                "adjustGlucose": 4.8000,
+                "dataNo": 14085,
+                "monitorTime": 1728829714879
+            },
+            {
+                "adjustGlucose": 4.6000,
+                "dataNo": 14090,
+                "monitorTime": 1728830014879
+            },
+            {
+                "adjustGlucose": 4.6000,
+                "dataNo": 14095,
+                "monitorTime": 1728830314879
+            },
+            {
+                "adjustGlucose": 4.7000,
+                "dataNo": 14100,
+                "monitorTime": 1728830614879
+            },
+            {
+                "adjustGlucose": 5.1000,
+                "dataNo": 14105,
+                "monitorTime": 1728830914879
+            },
+            {
+                "adjustGlucose": 5.1000,
+                "dataNo": 14110,
+                "monitorTime": 1728831214879
+            },
+            {
+                "adjustGlucose": 5.3000,
+                "dataNo": 14115,
+                "monitorTime": 1728831514879
+            },
+            {
+                "adjustGlucose": 5.5000,
+                "dataNo": 14120,
+                "monitorTime": 1728831814879
+            },
+            {
+                "adjustGlucose": 5.4000,
+                "dataNo": 14125,
+                "monitorTime": 1728832114879
+            },
+            {
+                "adjustGlucose": 5.2000,
+                "dataNo": 14130,
+                "monitorTime": 1728832414879
+            },
+            {
+                "adjustGlucose": 5.0000,
+                "dataNo": 14135,
+                "monitorTime": 1728832714879
+            },
+            {
+                "adjustGlucose": 5.1000,
+                "dataNo": 14140,
+                "monitorTime": 1728833014879
+            },
+            {
+                "adjustGlucose": 4.7000,
+                "dataNo": 14145,
+                "monitorTime": 1728833314879
+            },
+            {
+                "adjustGlucose": 4.6000,
+                "dataNo": 14150,
+                "monitorTime": 1728833614879
+            },
+            {
+                "adjustGlucose": 5.1000,
+                "dataNo": 14155,
+                "monitorTime": 1728833914879
+            },
+            {
+                "adjustGlucose": 4.8000,
+                "dataNo": 14160,
+                "monitorTime": 1728834214879
+            },
+            {
+                "adjustGlucose": 4.9000,
+                "dataNo": 14165,
+                "monitorTime": 1728834514879
+            },
+            {
+                "adjustGlucose": 4.7000,
+                "dataNo": 14170,
+                "monitorTime": 1728834814879
+            },
+            {
+                "adjustGlucose": 4.6000,
+                "dataNo": 14175,
+                "monitorTime": 1728835114879
+            },
+            {
+                "adjustGlucose": 4.4000,
+                "dataNo": 14180,
+                "monitorTime": 1728835414879
+            },
+            {
+                "adjustGlucose": 4.1000,
+                "dataNo": 14185,
+                "monitorTime": 1728835714879
+            },
+            {
+                "adjustGlucose": 4.0000,
+                "dataNo": 14190,
+                "monitorTime": 1728836014879
+            },
+            {
+                "adjustGlucose": 3.8000,
+                "dataNo": 14195,
+                "monitorTime": 1728836314879
+            },
+            {
+                "adjustGlucose": 3.9000,
+                "dataNo": 14200,
+                "monitorTime": 1728836614879
+            },
+            {
+                "adjustGlucose": 4.0000,
+                "dataNo": 14205,
+                "monitorTime": 1728836914879
+            },
+            {
+                "adjustGlucose": 4.2000,
+                "dataNo": 14210,
+                "monitorTime": 1728837214879
+            },
+            {
+                "adjustGlucose": 4.6000,
+                "dataNo": 14215,
+                "monitorTime": 1728837514879
+            },
+            {
+                "adjustGlucose": 4.7000,
+                "dataNo": 14220,
+                "monitorTime": 1728837814879
+            },
+            {
+                "adjustGlucose": 5.1000,
+                "dataNo": 14225,
+                "monitorTime": 1728838114879
+            },
+            {
+                "adjustGlucose": 5.0000,
+                "dataNo": 14230,
+                "monitorTime": 1728838414879
+            },
+            {
+                "adjustGlucose": 4.9000,
+                "dataNo": 14235,
+                "monitorTime": 1728838714879
+            },
+            {
+                "adjustGlucose": 4.7000,
+                "dataNo": 14240,
+                "monitorTime": 1728839014879
+            },
+            {
+                "adjustGlucose": 4.5000,
+                "dataNo": 14245,
+                "monitorTime": 1728839314879
+            },
+            {
+                "adjustGlucose": 4.2000,
+                "dataNo": 14250,
+                "monitorTime": 1728839614879
+            },
+            {
+                "adjustGlucose": 4.1000,
+                "dataNo": 14255,
+                "monitorTime": 1728839914879
+            },
+            {
+                "adjustGlucose": 4.2000,
+                "dataNo": 14260,
+                "monitorTime": 1728840214879
+            },
+            {
+                "adjustGlucose": 4.4000,
+                "dataNo": 14265,
+                "monitorTime": 1728840514879
+            },
+            {
+                "adjustGlucose": 5.0000,
+                "dataNo": 14270,
+                "monitorTime": 1728840814879
+            },
+            {
+                "adjustGlucose": 5.5000,
+                "dataNo": 14275,
+                "monitorTime": 1728841114879
+            },
+            {
+                "adjustGlucose": 6.4000,
+                "dataNo": 14280,
+                "monitorTime": 1728841414879
+            },
+            {
+                "adjustGlucose": 6.6000,
+                "dataNo": 14285,
+                "monitorTime": 1728841714879
+            },
+            {
+                "adjustGlucose": 6.8000,
+                "dataNo": 14290,
+                "monitorTime": 1728842014879
+            },
+            {
+                "adjustGlucose": 7.5000,
+                "dataNo": 14295,
+                "monitorTime": 1728842314879
+            },
+            {
+                "adjustGlucose": 7.6000,
+                "dataNo": 14300,
+                "monitorTime": 1728842614879
+            },
+            {
+                "adjustGlucose": 7.1000,
+                "dataNo": 14305,
+                "monitorTime": 1728842914879
+            },
+            {
+                "adjustGlucose": 7.7000,
+                "dataNo": 14310,
+                "monitorTime": 1728843214879
+            },
+            {
+                "adjustGlucose": 7.5000,
+                "dataNo": 14315,
+                "monitorTime": 1728843514879
+            },
+            {
+                "adjustGlucose": 8.0000,
+                "dataNo": 14320,
+                "monitorTime": 1728843814879
+            },
+            {
+                "adjustGlucose": 7.7000,
+                "dataNo": 14325,
+                "monitorTime": 1728844114879
+            },
+            {
+                "adjustGlucose": 7.8000,
+                "dataNo": 14330,
+                "monitorTime": 1728844414879
+            },
+            {
+                "adjustGlucose": 7.9000,
+                "dataNo": 14335,
+                "monitorTime": 1728844714879
+            },
+            {
+                "adjustGlucose": 8.6000,
+                "dataNo": 14340,
+                "monitorTime": 1728845014879
+            },
+            {
+                "adjustGlucose": 7.7000,
+                "dataNo": 14345,
+                "monitorTime": 1728845314879
+            },
+            {
+                "adjustGlucose": 7.7000,
+                "dataNo": 14350,
+                "monitorTime": 1728845614879
+            },
+            {
+                "adjustGlucose": 7.7000,
+                "dataNo": 14355,
+                "monitorTime": 1728845914879
+            },
+            {
+                "adjustGlucose": 8.5000,
+                "dataNo": 14360,
+                "monitorTime": 1728846214879
+            },
+            {
+                "adjustGlucose": 7.3000,
+                "dataNo": 14365,
+                "monitorTime": 1728846514879
+            },
+            {
+                "adjustGlucose": 6.6000,
+                "dataNo": 14370,
+                "monitorTime": 1728846814879
+            },
+            {
+                "adjustGlucose": 6.9000,
+                "dataNo": 14375,
+                "monitorTime": 1728847114879
+            },
+            {
+                "adjustGlucose": 7.7000,
+                "dataNo": 14380,
+                "monitorTime": 1728847414879
+            },
+            {
+                "adjustGlucose": 7.4000,
+                "dataNo": 14385,
+                "monitorTime": 1728847714879
+            },
+            {
+                "adjustGlucose": 7.6000,
+                "dataNo": 14390,
+                "monitorTime": 1728848014879
+            },
+            {
+                "adjustGlucose": 7.7000,
+                "dataNo": 14395,
+                "monitorTime": 1728848314879
+            },
+            {
+                "adjustGlucose": 8.5000,
+                "dataNo": 14400,
+                "monitorTime": 1728848614879
+            },
+            {
+                "adjustGlucose": 8.8000,
+                "dataNo": 14405,
+                "monitorTime": 1728848914879
+            },
+            {
+                "adjustGlucose": 7.1000,
+                "dataNo": 14410,
+                "monitorTime": 1728849214879
+            },
+            {
+                "adjustGlucose": 7.5000,
+                "dataNo": 14415,
+                "monitorTime": 1728849514879
+            },
+            {
+                "adjustGlucose": 8.2000,
+                "dataNo": 14420,
+                "monitorTime": 1728849814879
+            },
+            {
+                "adjustGlucose": 6.1000,
+                "dataNo": 14425,
+                "monitorTime": 1728850114879
+            },
+            {
+                "adjustGlucose": 6.3000,
+                "dataNo": 14430,
+                "monitorTime": 1728850414879
+            },
+            {
+                "adjustGlucose": 8.2000,
+                "dataNo": 14435,
+                "monitorTime": 1728850714879
+            },
+            {
+                "adjustGlucose": 7.5000,
+                "dataNo": 14440,
+                "monitorTime": 1728851014879
+            },
+            {
+                "adjustGlucose": 7.6000,
+                "dataNo": 14445,
+                "monitorTime": 1728851314879
+            },
+            {
+                "adjustGlucose": 7.5000,
+                "dataNo": 14450,
+                "monitorTime": 1728851614879
+            },
+            {
+                "adjustGlucose": 8.7000,
+                "dataNo": 14455,
+                "monitorTime": 1728851914879
+            },
+            {
+                "adjustGlucose": 8.8000,
+                "dataNo": 14460,
+                "monitorTime": 1728852214879
+            },
+            {
+                "adjustGlucose": 8.9000,
+                "dataNo": 14465,
+                "monitorTime": 1728852514879
+            },
+            {
+                "adjustGlucose": 9.1000,
+                "dataNo": 14470,
+                "monitorTime": 1728852814879
+            },
+            {
+                "adjustGlucose": 9.2000,
+                "dataNo": 14475,
+                "monitorTime": 1728853114879
+            },
+            {
+                "adjustGlucose": 9.3000,
+                "dataNo": 14480,
+                "monitorTime": 1728853414879
+            },
+            {
+                "adjustGlucose": 9.3000,
+                "dataNo": 14485,
+                "monitorTime": 1728853714879
+            },
+            {
+                "adjustGlucose": 9.3000,
+                "dataNo": 14490,
+                "monitorTime": 1728854014879
+            },
+            {
+                "adjustGlucose": 9.2000,
+                "dataNo": 14495,
+                "monitorTime": 1728854314879
+            },
+            {
+                "adjustGlucose": 8.8000,
+                "dataNo": 14500,
+                "monitorTime": 1728854614879
+            },
+            {
+                "adjustGlucose": 9.0000,
+                "dataNo": 14505,
+                "monitorTime": 1728854914879
+            },
+            {
+                "adjustGlucose": 8.8000,
+                "dataNo": 14510,
+                "monitorTime": 1728855214879
+            },
+            {
+                "adjustGlucose": 8.8000,
+                "dataNo": 14515,
+                "monitorTime": 1728855514879
+            },
+            {
+                "adjustGlucose": 8.8000,
+                "dataNo": 14520,
+                "monitorTime": 1728855814879
+            },
+            {
+                "adjustGlucose": 8.9000,
+                "dataNo": 14525,
+                "monitorTime": 1728856114879
+            },
+            {
+                "adjustGlucose": 9.1000,
+                "dataNo": 14530,
+                "monitorTime": 1728856414879
+            },
+            {
+                "adjustGlucose": 9.2000,
+                "dataNo": 14535,
+                "monitorTime": 1728856714879
+            },
+            {
+                "adjustGlucose": 9.3000,
+                "dataNo": 14540,
+                "monitorTime": 1728857014879
+            },
+            {
+                "adjustGlucose": 9.3000,
+                "dataNo": 14545,
+                "monitorTime": 1728857314879
+            },
+            {
+                "adjustGlucose": 9.6000,
+                "dataNo": 14550,
+                "monitorTime": 1728857614879
+            },
+            {
+                "adjustGlucose": 9.9000,
+                "dataNo": 14555,
+                "monitorTime": 1728857914879
+            },
+            {
+                "adjustGlucose": 10.2000,
+                "dataNo": 14560,
+                "monitorTime": 1728858214879
+            },
+            {
+                "adjustGlucose": 11.1000,
+                "dataNo": 14565,
+                "monitorTime": 1728858514879
+            },
+            {
+                "adjustGlucose": 10.7000,
+                "dataNo": 14570,
+                "monitorTime": 1728858814879
+            },
+            {
+                "adjustGlucose": 10.5000,
+                "dataNo": 14575,
+                "monitorTime": 1728859114879
+            },
+            {
+                "adjustGlucose": 10.7000,
+                "dataNo": 14580,
+                "monitorTime": 1728859414879
+            },
+            {
+                "adjustGlucose": 10.7000,
+                "dataNo": 14585,
+                "monitorTime": 1728859714879
+            },
+            {
+                "adjustGlucose": 10.7000,
+                "dataNo": 14590,
+                "monitorTime": 1728860014879
+            },
+            {
+                "adjustGlucose": 11.0000,
+                "dataNo": 14595,
+                "monitorTime": 1728860314879
+            },
+            {
+                "adjustGlucose": 11.3000,
+                "dataNo": 14600,
+                "monitorTime": 1728860614879
+            },
+            {
+                "adjustGlucose": 10.6000,
+                "dataNo": 14605,
+                "monitorTime": 1728860914879
+            },
+            {
+                "adjustGlucose": 10.3000,
+                "dataNo": 14610,
+                "monitorTime": 1728861214879
+            },
+            {
+                "adjustGlucose": 10.3000,
+                "dataNo": 14615,
+                "monitorTime": 1728861514879
+            },
+            {
+                "adjustGlucose": 10.2000,
+                "dataNo": 14620,
+                "monitorTime": 1728861814879
+            },
+            {
+                "adjustGlucose": 10.3000,
+                "dataNo": 14625,
+                "monitorTime": 1728862114879
+            },
+            {
+                "adjustGlucose": 10.0000,
+                "dataNo": 14630,
+                "monitorTime": 1728862414879
+            },
+            {
+                "adjustGlucose": 10.9000,
+                "dataNo": 14635,
+                "monitorTime": 1728862714879
+            },
+            {
+                "adjustGlucose": 10.4000,
+                "dataNo": 14640,
+                "monitorTime": 1728863014879
+            },
+            {
+                "adjustGlucose": 9.9000,
+                "dataNo": 14645,
+                "monitorTime": 1728863314879
+            },
+            {
+                "adjustGlucose": 10.5000,
+                "dataNo": 14650,
+                "monitorTime": 1728863614879
+            },
+            {
+                "adjustGlucose": 10.3000,
+                "dataNo": 14655,
+                "monitorTime": 1728863914879
+            },
+            {
+                "adjustGlucose": 10.3000,
+                "dataNo": 14660,
+                "monitorTime": 1728864214879
+            },
+            {
+                "adjustGlucose": 10.2000,
+                "dataNo": 14665,
+                "monitorTime": 1728864514879
+            },
+            {
+                "adjustGlucose": 10.1000,
+                "dataNo": 14670,
+                "monitorTime": 1728864814879
+            },
+            {
+                "adjustGlucose": 10.1000,
+                "dataNo": 14675,
+                "monitorTime": 1728865114879
+            },
+            {
+                "adjustGlucose": 10.0000,
+                "dataNo": 14680,
+                "monitorTime": 1728865414879
+            },
+            {
+                "adjustGlucose": 10.0000,
+                "dataNo": 14685,
+                "monitorTime": 1728865714879
+            },
+            {
+                "adjustGlucose": 9.7000,
+                "dataNo": 14690,
+                "monitorTime": 1728866014879
+            },
+            {
+                "adjustGlucose": 10.0000,
+                "dataNo": 14695,
+                "monitorTime": 1728866314879
+            },
+            {
+                "adjustGlucose": 10.7000,
+                "dataNo": 14700,
+                "monitorTime": 1728866614879
+            },
+            {
+                "adjustGlucose": 10.5000,
+                "dataNo": 14705,
+                "monitorTime": 1728866914879
+            },
+            {
+                "adjustGlucose": 10.4000,
+                "dataNo": 14710,
+                "monitorTime": 1728867214879
+            },
+            {
+                "adjustGlucose": 10.0000,
+                "dataNo": 14715,
+                "monitorTime": 1728867514879
+            },
+            {
+                "adjustGlucose": 9.9000,
+                "dataNo": 14720,
+                "monitorTime": 1728867814879
+            },
+            {
+                "adjustGlucose": 10.0000,
+                "dataNo": 14725,
+                "monitorTime": 1728868114879
+            },
+            {
+                "adjustGlucose": 10.2000,
+                "dataNo": 14730,
+                "monitorTime": 1728868414879
+            },
+            {
+                "adjustGlucose": 12.2000,
+                "dataNo": 14735,
+                "monitorTime": 1728868714879
+            },
+            {
+                "adjustGlucose": 11.1000,
+                "dataNo": 14740,
+                "monitorTime": 1728869014879
+            },
+            {
+                "adjustGlucose": 10.9000,
+                "dataNo": 14745,
+                "monitorTime": 1728869314879
+            },
+            {
+                "adjustGlucose": 11.3000,
+                "dataNo": 14750,
+                "monitorTime": 1728869614879
+            },
+            {
+                "adjustGlucose": 11.1000,
+                "dataNo": 14755,
+                "monitorTime": 1728869914879
+            },
+            {
+                "adjustGlucose": 11.0000,
+                "dataNo": 14760,
+                "monitorTime": 1728870214879
+            },
+            {
+                "adjustGlucose": 11.2000,
+                "dataNo": 14765,
+                "monitorTime": 1728870514879
+            },
+            {
+                "adjustGlucose": 11.3000,
+                "dataNo": 14770,
+                "monitorTime": 1728870814879
+            },
+            {
+                "adjustGlucose": 11.4000,
+                "dataNo": 14775,
+                "monitorTime": 1728871114879
+            },
+            {
+                "adjustGlucose": 11.3000,
+                "dataNo": 14780,
+                "monitorTime": 1728871414879
+            },
+            {
+                "adjustGlucose": 11.3000,
+                "dataNo": 14785,
+                "monitorTime": 1728871714879
+            },
+            {
+                "adjustGlucose": 11.3000,
+                "dataNo": 14790,
+                "monitorTime": 1728872014879
+            },
+            {
+                "adjustGlucose": 11.5000,
+                "dataNo": 14795,
+                "monitorTime": 1728872314879
+            },
+            {
+                "adjustGlucose": 11.2000,
+                "dataNo": 14800,
+                "monitorTime": 1728872614879
+            },
+            {
+                "adjustGlucose": 11.1000,
+                "dataNo": 14805,
+                "monitorTime": 1728872914879
+            },
+            {
+                "adjustGlucose": 10.9000,
+                "dataNo": 14810,
+                "monitorTime": 1728873214879
+            },
+            {
+                "adjustGlucose": 11.1000,
+                "dataNo": 14815,
+                "monitorTime": 1728873514879
+            },
+            {
+                "adjustGlucose": 12.1000,
+                "dataNo": 14820,
+                "monitorTime": 1728873814879
+            },
+            {
+                "adjustGlucose": 11.8000,
+                "dataNo": 14825,
+                "monitorTime": 1728874114879
+            },
+            {
+                "adjustGlucose": 11.7000,
+                "dataNo": 14830,
+                "monitorTime": 1728874414879
+            },
+            {
+                "adjustGlucose": 10.8000,
+                "dataNo": 14835,
+                "monitorTime": 1728874714879
+            },
+            {
+                "adjustGlucose": 9.7000,
+                "dataNo": 14840,
+                "monitorTime": 1728875014879
+            },
+            {
+                "adjustGlucose": 12.2000,
+                "dataNo": 14845,
+                "monitorTime": 1728875314879
+            },
+            {
+                "adjustGlucose": 11.3000,
+                "dataNo": 14850,
+                "monitorTime": 1728875614879
+            },
+            {
+                "adjustGlucose": 11.7000,
+                "dataNo": 14855,
+                "monitorTime": 1728875914879
+            },
+            {
+                "adjustGlucose": 12.8000,
+                "dataNo": 14860,
+                "monitorTime": 1728876214879
+            },
+            {
+                "adjustGlucose": 12.2000,
+                "dataNo": 14865,
+                "monitorTime": 1728876514879
+            },
+            {
+                "adjustGlucose": 11.7000,
+                "dataNo": 14870,
+                "monitorTime": 1728876814879
+            },
+            {
+                "adjustGlucose": 11.7000,
+                "dataNo": 14875,
+                "monitorTime": 1728877114879
+            },
+            {
+                "adjustGlucose": 11.5000,
+                "dataNo": 14880,
+                "monitorTime": 1728877414879
+            },
+            {
+                "adjustGlucose": 11.3000,
+                "dataNo": 14885,
+                "monitorTime": 1728877714879
+            },
+            {
+                "adjustGlucose": 10.6000,
+                "dataNo": 14890,
+                "monitorTime": 1728878014879
+            },
+            {
+                "adjustGlucose": 10.3000,
+                "dataNo": 14895,
+                "monitorTime": 1728878314879
+            },
+            {
+                "adjustGlucose": 9.7000,
+                "dataNo": 14900,
+                "monitorTime": 1728878614879
+            },
+            {
+                "adjustGlucose": 9.3000,
+                "dataNo": 14905,
+                "monitorTime": 1728878914879
+            },
+            {
+                "adjustGlucose": 9.6000,
+                "dataNo": 14910,
+                "monitorTime": 1728879214879
+            },
+            {
+                "adjustGlucose": 9.6000,
+                "dataNo": 14915,
+                "monitorTime": 1728879514879
+            },
+            {
+                "adjustGlucose": 9.2000,
+                "dataNo": 14920,
+                "monitorTime": 1728879814879
+            },
+            {
+                "adjustGlucose": 9.1000,
+                "dataNo": 14925,
+                "monitorTime": 1728880114879
+            },
+            {
+                "adjustGlucose": 8.6000,
+                "dataNo": 14930,
+                "monitorTime": 1728880414879
+            },
+            {
+                "adjustGlucose": 8.3000,
+                "dataNo": 14935,
+                "monitorTime": 1728880714879
+            },
+            {
+                "adjustGlucose": 8.0000,
+                "dataNo": 14940,
+                "monitorTime": 1728881014879
+            },
+            {
+                "adjustGlucose": 8.4000,
+                "dataNo": 14945,
+                "monitorTime": 1728881314879
+            },
+            {
+                "adjustGlucose": 8.3000,
+                "dataNo": 14950,
+                "monitorTime": 1728881614879
+            },
+            {
+                "adjustGlucose": 7.8000,
+                "dataNo": 14955,
+                "monitorTime": 1728881914879
+            },
+            {
+                "adjustGlucose": 7.5000,
+                "dataNo": 14960,
+                "monitorTime": 1728882214879
+            },
+            {
+                "adjustGlucose": 7.2000,
+                "dataNo": 14965,
+                "monitorTime": 1728882514879
+            },
+            {
+                "adjustGlucose": 6.9000,
+                "dataNo": 14970,
+                "monitorTime": 1728882814879
+            },
+            {
+                "adjustGlucose": 6.6000,
+                "dataNo": 14975,
+                "monitorTime": 1728883114879
+            },
+            {
+                "adjustGlucose": 6.3000,
+                "dataNo": 14980,
+                "monitorTime": 1728883414879
+            },
+            {
+                "adjustGlucose": 5.7000,
+                "dataNo": 14985,
+                "monitorTime": 1728883714879
+            },
+            {
+                "adjustGlucose": 5.9000,
+                "dataNo": 14990,
+                "monitorTime": 1728884014879
+            },
+            {
+                "adjustGlucose": 5.3000,
+                "dataNo": 14995,
+                "monitorTime": 1728884314879
+            },
+            {
+                "adjustGlucose": 4.7000,
+                "dataNo": 15000,
+                "monitorTime": 1728884614879
+            },
+            {
+                "adjustGlucose": 4.6000,
+                "dataNo": 15005,
+                "monitorTime": 1728884914879
+            },
+            {
+                "adjustGlucose": 4.6000,
+                "dataNo": 15010,
+                "monitorTime": 1728885214879
+            },
+            {
+                "adjustGlucose": 4.6000,
+                "dataNo": 15015,
+                "monitorTime": 1728885514879
+            },
+            {
+                "adjustGlucose": 4.7000,
+                "dataNo": 15020,
+                "monitorTime": 1728885814879
+            },
+            {
+                "adjustGlucose": 5.1000,
+                "dataNo": 15025,
+                "monitorTime": 1728886114879
+            },
+            {
+                "adjustGlucose": 5.5000,
+                "dataNo": 15030,
+                "monitorTime": 1728886414879
+            },
+            {
+                "adjustGlucose": 5.8000,
+                "dataNo": 15035,
+                "monitorTime": 1728886714879
+            },
+            {
+                "adjustGlucose": 6.1000,
+                "dataNo": 15040,
+                "monitorTime": 1728887014879
+            },
+            {
+                "adjustGlucose": 6.2000,
+                "dataNo": 15045,
+                "monitorTime": 1728887314879
+            },
+            {
+                "adjustGlucose": 6.4000,
+                "dataNo": 15050,
+                "monitorTime": 1728887614879
+            },
+            {
+                "adjustGlucose": 6.3000,
+                "dataNo": 15055,
+                "monitorTime": 1728887914879
+            },
+            {
+                "adjustGlucose": 6.4000,
+                "dataNo": 15060,
+                "monitorTime": 1728888214879
+            },
+            {
+                "adjustGlucose": 6.2000,
+                "dataNo": 15065,
+                "monitorTime": 1728888514879
+            },
+            {
+                "adjustGlucose": 6.1000,
+                "dataNo": 15070,
+                "monitorTime": 1728888814879
+            },
+            {
+                "adjustGlucose": 6.0000,
+                "dataNo": 15075,
+                "monitorTime": 1728889114879
+            },
+            {
+                "adjustGlucose": 5.7000,
+                "dataNo": 15080,
+                "monitorTime": 1728889414879
+            },
+            {
+                "adjustGlucose": 5.7000,
+                "dataNo": 15085,
+                "monitorTime": 1728889714879
+            },
+            {
+                "adjustGlucose": 5.6000,
+                "dataNo": 15090,
+                "monitorTime": 1728890014879
+            },
+            {
+                "adjustGlucose": 5.6000,
+                "dataNo": 15095,
+                "monitorTime": 1728890314879
+            },
+            {
+                "adjustGlucose": 5.4000,
+                "dataNo": 15100,
+                "monitorTime": 1728890614879
+            },
+            {
+                "adjustGlucose": 5.4000,
+                "dataNo": 15105,
+                "monitorTime": 1728890914879
+            },
+            {
+                "adjustGlucose": 5.4000,
+                "dataNo": 15110,
+                "monitorTime": 1728891214879
+            },
+            {
+                "adjustGlucose": 5.2000,
+                "dataNo": 15115,
+                "monitorTime": 1728891514879
+            },
+            {
+                "adjustGlucose": 5.2000,
+                "dataNo": 15120,
+                "monitorTime": 1728891814879
+            },
+            {
+                "adjustGlucose": 5.2000,
+                "dataNo": 15125,
+                "monitorTime": 1728892114879
+            },
+            {
+                "adjustGlucose": 5.0000,
+                "dataNo": 15130,
+                "monitorTime": 1728892414879
+            },
+            {
+                "adjustGlucose": 5.3000,
+                "dataNo": 15135,
+                "monitorTime": 1728892714879
+            },
+            {
+                "adjustGlucose": 4.9000,
+                "dataNo": 15140,
+                "monitorTime": 1728893014879
+            },
+            {
+                "adjustGlucose": 5.2000,
+                "dataNo": 15145,
+                "monitorTime": 1728893314879
+            },
+            {
+                "adjustGlucose": 5.6000,
+                "dataNo": 15150,
+                "monitorTime": 1728893614879
+            },
+            {
+                "adjustGlucose": 5.3000,
+                "dataNo": 15155,
+                "monitorTime": 1728893914879
+            },
+            {
+                "adjustGlucose": 5.9000,
+                "dataNo": 15160,
+                "monitorTime": 1728894214879
+            },
+            {
+                "adjustGlucose": 6.1000,
+                "dataNo": 15165,
+                "monitorTime": 1728894514879
+            },
+            {
+                "adjustGlucose": 6.6000,
+                "dataNo": 15170,
+                "monitorTime": 1728894814879
+            },
+            {
+                "adjustGlucose": 7.1000,
+                "dataNo": 15175,
+                "monitorTime": 1728895114879
+            },
+            {
+                "adjustGlucose": 7.5000,
+                "dataNo": 15180,
+                "monitorTime": 1728895414879
+            },
+            {
+                "adjustGlucose": 7.8000,
+                "dataNo": 15185,
+                "monitorTime": 1728895714879
+            },
+            {
+                "adjustGlucose": 8.3000,
+                "dataNo": 15190,
+                "monitorTime": 1728896014879
+            },
+            {
+                "adjustGlucose": 8.3000,
+                "dataNo": 15195,
+                "monitorTime": 1728896314879
+            },
+            {
+                "adjustGlucose": 8.4000,
+                "dataNo": 15200,
+                "monitorTime": 1728896614879
+            },
+            {
+                "adjustGlucose": 8.0000,
+                "dataNo": 15205,
+                "monitorTime": 1728896914879
+            },
+            {
+                "adjustGlucose": 8.0000,
+                "dataNo": 15210,
+                "monitorTime": 1728897214879
+            },
+            {
+                "adjustGlucose": 9.1000,
+                "dataNo": 15215,
+                "monitorTime": 1728897514879
+            },
+            {
+                "adjustGlucose": 8.6000,
+                "dataNo": 15220,
+                "monitorTime": 1728897814879
+            },
+            {
+                "adjustGlucose": 9.1000,
+                "dataNo": 15225,
+                "monitorTime": 1728898114879
+            },
+            {
+                "adjustGlucose": 9.2000,
+                "dataNo": 15230,
+                "monitorTime": 1728898414879
+            },
+            {
+                "adjustGlucose": 9.0000,
+                "dataNo": 15235,
+                "monitorTime": 1728898714879
+            },
+            {
+                "adjustGlucose": 9.0000,
+                "dataNo": 15240,
+                "monitorTime": 1728899014879
+            },
+            {
+                "adjustGlucose": 9.1000,
+                "dataNo": 15245,
+                "monitorTime": 1728899314879
+            },
+            {
+                "adjustGlucose": 8.6000,
+                "dataNo": 15250,
+                "monitorTime": 1728899614879
+            },
+            {
+                "adjustGlucose": 9.4000,
+                "dataNo": 15255,
+                "monitorTime": 1728899914879
+            },
+            {
+                "adjustGlucose": 8.6000,
+                "dataNo": 15260,
+                "monitorTime": 1728900214879
+            },
+            {
+                "adjustGlucose": 9.0000,
+                "dataNo": 15265,
+                "monitorTime": 1728900514879
+            },
+            {
+                "adjustGlucose": 8.1000,
+                "dataNo": 15270,
+                "monitorTime": 1728900814879
+            },
+            {
+                "adjustGlucose": 8.0000,
+                "dataNo": 15275,
+                "monitorTime": 1728901114879
+            },
+            {
+                "adjustGlucose": 8.0000,
+                "dataNo": 15280,
+                "monitorTime": 1728901414879
+            },
+            {
+                "adjustGlucose": 7.8000,
+                "dataNo": 15285,
+                "monitorTime": 1728901714879
+            },
+            {
+                "adjustGlucose": 7.4000,
+                "dataNo": 15290,
+                "monitorTime": 1728902014879
+            },
+            {
+                "adjustGlucose": 7.9000,
+                "dataNo": 15295,
+                "monitorTime": 1728902314879
+            },
+            {
+                "adjustGlucose": 7.6000,
+                "dataNo": 15300,
+                "monitorTime": 1728902614879
+            },
+            {
+                "adjustGlucose": 7.2000,
+                "dataNo": 15305,
+                "monitorTime": 1728902914879
+            },
+            {
+                "adjustGlucose": 7.3000,
+                "dataNo": 15310,
+                "monitorTime": 1728903214879
+            },
+            {
+                "adjustGlucose": 7.1000,
+                "dataNo": 15315,
+                "monitorTime": 1728903514879
+            },
+            {
+                "adjustGlucose": 6.8000,
+                "dataNo": 15320,
+                "monitorTime": 1728903814879
+            },
+            {
+                "adjustGlucose": 7.0000,
+                "dataNo": 15325,
+                "monitorTime": 1728904114879
+            },
+            {
+                "adjustGlucose": 7.2000,
+                "dataNo": 15330,
+                "monitorTime": 1728904414879
+            },
+            {
+                "adjustGlucose": 6.6000,
+                "dataNo": 15335,
+                "monitorTime": 1728904714879
+            },
+            {
+                "adjustGlucose": 6.2000,
+                "dataNo": 15340,
+                "monitorTime": 1728905014879
+            },
+            {
+                "adjustGlucose": 6.0000,
+                "dataNo": 15345,
+                "monitorTime": 1728905314879
+            },
+            {
+                "adjustGlucose": 5.7000,
+                "dataNo": 15350,
+                "monitorTime": 1728905614879
+            },
+            {
+                "adjustGlucose": 5.5000,
+                "dataNo": 15355,
+                "monitorTime": 1728905914879
+            },
+            {
+                "adjustGlucose": 5.2000,
+                "dataNo": 15360,
+                "monitorTime": 1728906214879
+            },
+            {
+                "adjustGlucose": 5.3000,
+                "dataNo": 15365,
+                "monitorTime": 1728906514879
+            },
+            {
+                "adjustGlucose": 5.3000,
+                "dataNo": 15370,
+                "monitorTime": 1728906814879
+            },
+            {
+                "adjustGlucose": 5.2000,
+                "dataNo": 15375,
+                "monitorTime": 1728907114879
+            },
+            {
+                "adjustGlucose": 5.2000,
+                "dataNo": 15380,
+                "monitorTime": 1728907414879
+            },
+            {
+                "adjustGlucose": 5.3000,
+                "dataNo": 15385,
+                "monitorTime": 1728907714879
+            },
+            {
+                "adjustGlucose": 5.3000,
+                "dataNo": 15390,
+                "monitorTime": 1728908014879
+            },
+            {
+                "adjustGlucose": 5.2000,
+                "dataNo": 15395,
+                "monitorTime": 1728908314879
+            },
+            {
+                "adjustGlucose": 4.9000,
+                "dataNo": 15400,
+                "monitorTime": 1728908614879
+            },
+            {
+                "adjustGlucose": 4.8000,
+                "dataNo": 15405,
+                "monitorTime": 1728908914879
+            },
+            {
+                "adjustGlucose": 4.8000,
+                "dataNo": 15410,
+                "monitorTime": 1728909214879
+            },
+            {
+                "adjustGlucose": 4.6000,
+                "dataNo": 15415,
+                "monitorTime": 1728909514879
+            },
+            {
+                "adjustGlucose": 4.5000,
+                "dataNo": 15420,
+                "monitorTime": 1728909814879
+            },
+            {
+                "adjustGlucose": 4.3000,
+                "dataNo": 15425,
+                "monitorTime": 1728910114879
+            },
+            {
+                "adjustGlucose": 4.3000,
+                "dataNo": 15430,
+                "monitorTime": 1728910414879
+            },
+            {
+                "adjustGlucose": 4.1000,
+                "dataNo": 15435,
+                "monitorTime": 1728910714879
+            },
+            {
+                "adjustGlucose": 4.3000,
+                "dataNo": 15440,
+                "monitorTime": 1728911014879
+            },
+            {
+                "adjustGlucose": 4.4000,
+                "dataNo": 15445,
+                "monitorTime": 1728911314879
+            }
+        ],
+        "avgGlucose": 8.3,
+        "inRangeRate": 71,
+        "lowGlucoseThreshold": 4.0000,
+        "highGlucoseThreshold": 10.0000,
+        "unit": "mmol_L",
+        "sdbg": null,
+        "cv": null,
+        "mage": null
+    },
+    "currentTime": 1728919344996
+}

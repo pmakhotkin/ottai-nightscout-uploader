@@ -1,0 +1,11 @@
+# docker compose up
+
+version: "3.1"
+
+services:
+  app:
+    build: .
+    container_name: ottai-nightscout-uploader
+    environment:
+      PYTHONUNBUFFERED: 1
+    command: python -u main.py
