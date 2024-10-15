@@ -49,7 +49,7 @@ def get_fromUserId():
         e = r.get('msg')
         print(e)
 
-def get_ottai_array_of_entries(lastDate = int(round((datetime.datetime.now() - timedelta(hours=5)).timestamp() * 1000))):
+def get_ottai_array_of_entries(lastDate = int(round((datetime.datetime.now() - timedelta(hours=HOURS_AGO)).timestamp() * 1000))):
     fromUserId = get_fromUserId()
     currentDate = int(round(datetime.datetime.now().timestamp() * 1000))
     params = f'fromUserId={fromUserId}&startTime={lastDate}&endTime={currentDate}'

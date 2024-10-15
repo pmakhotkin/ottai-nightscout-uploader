@@ -6,6 +6,7 @@ import hashlib
 # OTTAI_TOKEN = ""
 # NS_URL = ""
 # NS_API_SECRET= "" #api_secret
+# HOURS_AGO
 
 try:
     ottai_token = str(os.environ['OTTAI_TOKEN'])
@@ -13,7 +14,6 @@ except:
     sys.exit("OTTAI_TOKEN required. Pass it as an Environment Variable.")
 
     ottai_url_array_entries = "https://seas.ottai.com/link/application/search/tag/queryMonitorBase"
-
 
 # Nightscout 
 try:
@@ -29,6 +29,11 @@ except:
 # uploader initialisation
 ns_uploder = "Ottai-Nightscout-Uploader"
 ns_unit_convert = 18.018
+
+try:
+    HOURS_AGO = int(os.environ['HOURS_AGO'])
+except:
+    sys.exit("HOURS_AGO required. Pass it as an Environment Variable.")
 
 def get_hash_SHA1(data):
     hash_object =hashlib.sha1(data.encode())
