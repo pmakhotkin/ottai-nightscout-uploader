@@ -13,12 +13,11 @@ def start_module():
     # except Exception as error:
     #         print("Error requesting from Nightscout:", error)
 
-    LastDate = 1728738600058
 # get ottai data
     os.system('cls' if os.name == 'nt' else 'clear')
     try:
         #ottai_data = get_ottai_one_entry()
-        ottai_data = get_ottai_array_of_entries(LastDate)
+        ottai_data = get_ottai_array_of_entries()
     except Exception as error:
         print("Error requesting from ottai:", error)
         return
