@@ -8,4 +8,8 @@ services:
     container_name: ottai-nightscout-uploader
     environment:
       PYTHONUNBUFFERED: 1
+      OTTAI_TOKEN: eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE3NDQyODUzMzcsInVzZXJJZCI6IjIwMTEyMzQ1In0.qGMRGHFi7EKhDvsYQ2wfc1mL_efuFDqjcG1_wE_e5NQbuK1zx7CCvtEQHlIUKrq54pPL0AQ-rn_bB0t5Yzx1xg
+      NS_URL:
+      NS_API_SECRET:
+      HOURS_AGO:
     command: python -u main.py
