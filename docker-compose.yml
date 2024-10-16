@@ -6,9 +6,10 @@ services:
   app:
     build: .
     container_name: ottai-nightscout-uploader
+    restart: always
     environment:
       PYTHONUNBUFFERED: 1
-      OTTAI_TOKEN: eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE3NDQyODUzMzcsInVzZXJJZCI6IjIwMTEyMzQ1In0.qGMRGHFi7EKhDvsYQ2wfc1mL_efuFDqjcG1_wE_e5NQbuK1zx7CCvtEQHlIUKrq54pPL0AQ-rn_bB0t5Yzx1xg
+      OTTAI_TOKEN: 
       NS_URL:
       NS_API_SECRET:
       HOURS_AGO:
