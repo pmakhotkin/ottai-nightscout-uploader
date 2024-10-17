@@ -9,7 +9,7 @@
 | Переменная               | Описание                                                                                                                | пример                                  | Необходим |
 |--------------------------|----------------------------------------------------------------------------------------------------------------------------|------------------------------------------|----------|
 | OTTAI_TOKEN                | Ottai API JWT токен Token                                                                                                 | eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE3NDQyODUzMzcsInVzZXJJZCI6IjIwMTEyMzQ1In0.qGMRGHFi7EKhDvsYQ2wfc1mL_efuFDqjcG1_wE_e5NQbuK1zx7CCvtEQHlIUKrq54pPL0AQ-rn_bB0t5Yzx1xg     | X        |
-| NS_URL                | URL адрес Nightscout                                                                                                   | https://j12345678.nightscout-jino.ru/                                       |     X     |
+| NS_URL                | URL адрес Nightscout                                                                                                   | https://j12345678.nightscout-jino.ru/api/v1                                       |     X     |
 | NS_API_SECRET       | API Secret NightScout      | H4uSur24Bkwu                                       |      X    |
 | HOURS_AGO    | Перезапуск перевыгрузки данных при потере связи в часах                                                               | 5                                        |    X      |
 
@@ -43,15 +43,57 @@ docker build -t ottai-nightscout-uploader .
 ```
 
 
-Запустите контейнер передав ему все необходимые переменные путем заполнения значений в файле .env
-
-```
-docker run -d --restart=always -env-file=.env  ottai-nightscout-uploader -n ottai-nightscout-uploader
-```
 #### Запуск через docker compose 
-Альтернативно можно запустить через docker compose
+Можно запустить через docker compose
 Вносите значения переменных в файл docker-compose.yml в разделе environment
 Далее выполняете запуск из корня репозитория
 ```
 docker compose up -d
 ```
+
+### Запуск на телефоне через termux
+
+Скачиваете [termux](https://play.google.com/store/apps/details?id=com.termux) на android смартфон
+
+Запускаете и выполняете установку пакетов:
+```
+pkg up -y && pkg install openssl python3 git openssl-static openssl-tool
+```
+
+клонируете репозиторий:
+```
+git clone https://github.com/pmakhotkin/ottai-nightscout-uploader.git
+```
+
+выполняете переход в папку репозитория и установку зависиомстей:
+```
+cd ottai-nightscout-uploader/
+pip install -r requirements.txt
+```
+редактируем файл .env. Вносим в него свои данные (токен пользователя, адрес nightscout и api secret и время перезапроса данных)
+
+```
+nano .env
+```
+Сохраняем файл нажатием ctrl+O
+
+выполняем загрузку переменных окружения
+
+```
+source .env
+```
+
+Запускаем скрипт
+
+```
+python -u main.py
+```
+Если все ок, то видим как обмен данными пошел
+В вводе будет что-то типа:
+```
+Nightscout POST request 200 OK                          
+2024-10-17 11:04:19.483938
+entries uploaded.
+```
+
+Если вывод будет отличаться, то необходимо еще раз проверить свои данные
