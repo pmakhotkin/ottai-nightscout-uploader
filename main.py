@@ -3,8 +3,6 @@ import schedule
 import time
 
 def start_module():
-
-
 # get last entry date
     # try:
     #     ns_last_date = get_last_entry_date()
@@ -15,6 +13,7 @@ def start_module():
 
 # get ottai data
     os.system('cls' if os.name == 'nt' else 'clear')
+    print("start of processing...")
     try:
         #ottai_data = get_ottai_one_entry()
         ottai_data = get_ottai_array_of_entries()
@@ -25,6 +24,8 @@ def start_module():
         process_json_data(ottai_data)
     except Exception as error:
         print("Error reading direction:", error)
+    print("Entries loaded in Nightscout")
+    print(datetime.datetime.now())
 
 def main():
     start_module()

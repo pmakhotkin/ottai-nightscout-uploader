@@ -43,7 +43,7 @@ def get_fromUserId():
     try:
         r=requests.post("https://seas.ottai.com/link/application/app/tagFromInviteLink/linkQueryList/v2",headers=ottai_header_one_entries)
         data = r.json()
-        print("Ottai get User Id Response Status:" , r.status_code , r.reason)
+        #print("Ottai get User Id Response Status:" , r.status_code , r.reason)
         return data['data'][0]['fromUserId']
     except requests.JSONDecodeError:
         e = r.get('msg')
@@ -62,7 +62,21 @@ def get_ottai_array_of_entries(lastDate = int(round((datetime.datetime.now() - t
         e = r.get('msg')
         print(e)
 
-
+def process_json_data(data):
+    try:
+       for item in data['data']['curveList']:
+            entry_dict = {
+            "type" : "sgv",
+            "sgv" : convert_mmoll_to_mgdl(item['adjustGlucose']),
+            "direction" : "FortyFiveUp",
+            "device": ns_uploder,
+            "date" : item['monitorTime'],
+            "dateString": str(datetime.datetime.utcfromtimestamp(item['monitorTime']/1000).isoformat(timespec='milliseconds')+"Z")
+            }
+            upload_entry(entry_dict)
+    except Exception as error:
+         print("Error reading glucose data:", error)
+    
 # example of json to Nightscout
 # {
 #  "type": "sgv",
@@ -73,45 +87,9 @@ def get_ottai_array_of_entries(lastDate = int(round((datetime.datetime.now() - t
 #  "dateString": "2024-09-02T03:27:14.000Z"
 # }
 
-def process_json_data_prepare_json(data_ottai):
-    dict_data =[]
-    try:
-       for item in data_ottai['data']['curveList']:
-            entry_dict = {
-            "type" : "sgv",
-            "sgv" : convert_mmoll_to_mgdl(item['adjustGlucose']),
-            "direction" : "FortyFiveUp",
-            "device": ns_uploder,
-            "date" : item['monitorTime'],
-            "dateString": str(datetime.datetime.utcfromtimestamp(item['monitorTime']/1000).isoformat(timespec='milliseconds')+"Z")
-            }
-            dict_data.append(entry_dict)       
-    except Exception as error:
-        print("Error reading glucoseInfo from ottai:", error)
-        return
-    return dict_data
-
-def process_json_data(data):
-    print("Processing data...")
-    try:
-        dict_json_for_upload = process_json_data_prepare_json(data)
-        for item in dict_json_for_upload:
-            upload_json = json.loads(json.dumps(item))
-            upload_entry(upload_json)
-
-    except Exception as error:
-        print("Error reading glucose data:", error)
-    
-
 def upload_entry(entries_json): #entries tpye = a list of dicts
     r=requests.post(ns_url+"/entries", headers = ns_header, json = entries_json)
-    # 17:28
-    if r.status_code == 200:
-        os.system('cls' if os.name == 'nt' else 'clear')
-        print("Nightscout POST request", r.status_code , r.reason)
-        print(datetime.datetime.now())
-        print("entries uploaded.")
-    else:
+    if r.status_code != 200:
         print("Nightscout POST request", r.status_code , r.reason, r.text)
 
 def uploader_entries_by_period(ottai_data):
@@ -121,6 +99,7 @@ def uploader_entries_by_period(ottai_data):
 
     except Exception as error:
         print("Error reading ottai data by period", error)
+
 # return query entry date. (Slice allows searching for modal times of day across days and months.)
 def get_query_entry_date(query_date,header):
     r=requests.get(ns_url+"slice/entries/dateString/sgv/"+query_date+".*", headers=header)
@@ -132,4 +111,3 @@ def get_query_entry_date(query_date,header):
         content_type = r.headers.get('Content-Type')
         print("Failed. Content Type " + content_type)
     return data[0]["date"]
-
