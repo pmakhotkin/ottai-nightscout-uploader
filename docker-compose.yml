@@ -9,6 +9,7 @@ services:
     restart: always
     environment:
       PYTHONUNBUFFERED: 1
+      OTTAI_BASE_URL:
       OTTAI_TOKEN: 
       NS_URL:
       NS_API_SECRET:

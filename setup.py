@@ -12,8 +12,13 @@ try:
     ottai_token = str(os.environ['OTTAI_TOKEN'])
 except:
     sys.exit("OTTAI_TOKEN required. Pass it as an Environment Variable.")
+try:
+    ottai_base_url = str(os.environ['OTTAI_BASE_URL'])
+except:
+    # Default value for backward compatibility
+    ottai_base_url = "https://seas.ottai.com"
 
-    ottai_url_array_entries = "https://seas.ottai.com/link/application/search/tag/queryMonitorBase"
+    ottai_url_array_entries = f"{ottai_base_url}/link/application/search/tag/queryMonitorBase"
 
 # Nightscout 
 try:

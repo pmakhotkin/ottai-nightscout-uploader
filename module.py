@@ -30,7 +30,7 @@ def convert_mgdl_to_mmoll(x):
 # process ottai data
 def get_ottai_one_entry():
     try:
-        r=requests.post("https://seas.ottai.com/link/application/app/tagFromInviteLink/linkQueryList/v2", headers=ottai_header_one_entries)
+        r=requests.post(f"{ottai_base_url}/link/application/app/tagFromInviteLink/linkQueryList/v2", headers=ottai_header_one_entries)
         data = r.json()
         print("ottai Response Status:" , r.status_code , r.reason)
         #pprint.pprint(r.json(), compact=True)
@@ -41,7 +41,7 @@ def get_ottai_one_entry():
 
 def get_fromUserId():
     try:
-        r=requests.post("https://seas.ottai.com/link/application/app/tagFromInviteLink/linkQueryList/v2",headers=ottai_header_one_entries)
+        r=requests.post(f"{ottai_base_url}/link/application/app/tagFromInviteLink/linkQueryList/v2",headers=ottai_header_one_entries)
         data = r.json()
         #print("Ottai get User Id Response Status:" , r.status_code , r.reason)
         return data['data'][0]['fromUserId']
@@ -54,7 +54,7 @@ def get_ottai_array_of_entries(lastDate = int(round((datetime.datetime.now() - t
     currentDate = int(round(datetime.datetime.now().timestamp() * 1000))
     params = f'fromUserId={fromUserId}&startTime={lastDate}&endTime={currentDate}'
     try:
-        r=requests.get("https://seas.ottai.com/link/application/search/tag/queryMonitorBase",headers=ottai_header_array_entries,params=params)
+        r=requests.get(f"{ottai_base_url}/link/application/search/tag/queryMonitorBase",headers=ottai_header_array_entries,params=params)
         data = r.json()
         print("Ottai get entries Response Status:" , r.status_code , r.reason)
         return data

@@ -12,6 +12,7 @@
 | NS_URL                | URL адрес Nightscout                                                                                                   | https://j12345678.nightscout-jino.ru/api/v1                                       |     X     |
 | NS_API_SECRET       | API Secret NightScout      | H4uSur24Bkwu                                       |      X    |
 | HOURS_AGO    | Перезапуск перевыгрузки данных при потере связи в часах                                                               | 5                                        |    X      |
+| OTTAI_BASE_URL | Переменная определяющая сервер для выгрузки. Для syai значение https://ru.syai.com . При использовании ottai ничего не требуется. | https://ru.syai.com                   |           |
 
 
 ## Получение Ottai API JWT токен 
