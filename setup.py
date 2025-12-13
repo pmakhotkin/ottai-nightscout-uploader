@@ -13,7 +13,6 @@ except KeyError:
 try:
     ottai_base_url = str(os.environ['OTTAI_BASE_URL'])
 except KeyError:
-    # Значение по умолчанию для обратной совместимости
     ottai_base_url = "https://seas.ottai.com"
 
 try:
@@ -56,21 +55,20 @@ ns_header = {
     "Accept": "application/json",
 }
 
-# ========== БАЗОВЫЕ ЗАГОЛОВКИ OTTAI (ТОЛЬКО ОБЯЗАТЕЛЬНЫЕ) ==========
+# ========== БАЗОВЫЕ ЗАГОЛОВКИ OTTAI ==========
 common_ottai_headers = {
     "authorization": ottai_token,
     "country": "RU",
     "language": "ru",
     "timezone": "10800",
     "region": "RU",
-    "versionCode": "254632",  # Добавлен по требованию
+    "versionCode": "254632",
 }
 
 # ========== ЗАГОЛОВКИ ДЛЯ ЗАПРОСА linkQueryList ==========
 ottai_header_one_entries = common_ottai_headers.copy()
 
 # ========== ЗАГОЛОВКИ ДЛЯ ЗАПРОСА queryMonitorBase ==========
-# Инициализируем как None, будет установлено при первом вызове
 ottai_header_array_entries = None
 
 def init_ottai_headers():
@@ -85,4 +83,3 @@ def init_ottai_headers():
     })
     
     ottai_header_array_entries = headers
-    print(f"[DEBUG] Заголовки queryMonitorBase инициализированы. Ключи: {list(headers.keys())}")
