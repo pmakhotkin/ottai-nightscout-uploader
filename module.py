@@ -189,36 +189,54 @@ def check_nightscout_connection(user_config):
 
 def get_last_entry_date(user_config):
     """
-    Получение даты последней записи из Nightscout
+    Получение даты последней записи из Nightscout (используем стандартный API)
     """
     try:
         base_url = user_config['ns_url']
         if not base_url.endswith('/api/v1'):
             base_url = f"{base_url}/api/v1"
         
-        url = f"{base_url}/api/v1/slice/entries/dateString/sgv/.*/.*?count=1"
-        print(f"[DEBUG] Запрос последней записи: GET {url}")
+        # Пробуем несколько вариантов стандартных endpoints Nightscout
+        endpoints = [
+            "/entries?count=1",
+            "/entries.json?count=1",
+            "/entries/sgv.json?count=1",
+            "/entries?find[type]=sgv&count=1"
+        ]
         
-        r = requests.get(url, headers=user_config['ns_header'], timeout=10)
-        
-        if r.status_code != 200:
-            print(f"[DEBUG] Ошибка Nightscout: {r.status_code}")
-            return None
-        
-        data = r.json()
-        
-        if not data or not isinstance(data, list) or len(data) == 0:
-            print(f"[DEBUG] Nightscout пуст")
-            return None
-        
-        last_date = data[0]["date"]
-        date_str = datetime.datetime.fromtimestamp(last_date/1000).strftime('%Y-%m-%d %H:%M:%S')
-        print(f"[DEBUG] Последняя запись в Nightscout: {date_str}")
+        for endpoint in endpoints:
+            url = f"{base_url}{endpoint}"
+            print(f"[DEBUG] Запрос последней записи: GET {url}")
             
-        return last_date
+            try:
+                r = requests.get(url, headers=user_config['ns_header'], timeout=10)
+                
+                if r.status_code == 200:
+                    data = r.json()
+                    
+                    if data and isinstance(data, list) and len(data) > 0:
+                        last_entry = data[0]
+                        if 'date' in last_entry:
+                            last_date = last_entry['date']
+                            date_str = datetime.datetime.fromtimestamp(last_date/1000).strftime('%Y-%m-%d %H:%M:%S')
+                            print(f"[DEBUG] ✅ Последняя запись в Nightscout: {date_str}")
+                            return last_date
+                    else:
+                        print(f"[DEBUG] Nightscout пуст")
+                        return None
+                else:
+                    print(f"[DEBUG] Endpoint {endpoint} вернул статус: {r.status_code}")
+                    
+            except Exception as e:
+                print(f"[DEBUG] Ошибка при запросе {endpoint}: {str(e)}")
+                continue
+        
+        print(f"[DEBUG] ❌ Не удалось получить последнюю запись из Nightscout")
+        return None
         
     except Exception as e:
         print(f"[DEBUG] Ошибка при получении последней записи: {str(e)}")
+        traceback.print_exc()
         return None
 
 def process_user_data(user_config):
@@ -336,11 +354,22 @@ def process_user_json_data(user_config, data):
                 entry_dict = {
                     "type": "sgv",
                     "sgv": convert_mmoll_to_mgdl(glucose),
-                    "direction": "FortyFiveUp",
+                    "direction": "Flat",  # По умолчанию
                     "device": user_config['ns_uploder'],
                     "date": timestamp,
                     "dateString": datetime.datetime.utcfromtimestamp(timestamp/1000).isoformat(timespec='milliseconds') + "Z"
                 }
+                
+                # Пытаемся определить направление тренда
+                if 'slope' in item or 'trend' in item:
+                    trend_value = item.get('trend') or item.get('slope')
+                    if trend_value:
+                        trend_map = {
+                            'rising': 'DoubleUp',
+                            'falling': 'DoubleDown',
+                            'stable': 'Flat'
+                        }
+                        entry_dict['direction'] = trend_map.get(trend_value, 'Flat')
                 
                 # Загружаем запись в Nightscout
                 if upload_entry_to_nightscout(user_config, entry_dict):
@@ -357,6 +386,7 @@ def process_user_json_data(user_config, data):
         
     except Exception as error:
         print(f"[ERROR] Ошибка обработки JSON данных: {str(error)}")
+        traceback.print_exc()
         return 0
 
 def upload_entry_to_nightscout(user_config, entry_dict):
@@ -371,7 +401,7 @@ def upload_entry_to_nightscout(user_config, entry_dict):
         url = f"{base_url}/entries"
         
         print(f"[DEBUG] Отправка в Nightscout: POST {url}")
-        print(f"[DEBUG] Данные записи: {json.dumps(entry_dict)}")
+        print(f"[DEBUG] Данные записи: {json.dumps(entry_dict, indent=2)}")
         
         r = requests.post(url, 
                          headers=user_config['ns_header'], 
