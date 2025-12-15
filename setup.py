@@ -8,53 +8,38 @@ import base64
 import json
 
 # ========== ПРОВЕРКА ПЕРЕМЕННЫХ ОКРУЖЕНИЯ ==========
-try:
-    ottai_token = str(os.environ['OTTAI_TOKEN'])
-except KeyError:
-    sys.exit("OTTAI_TOKEN required. Pass it as an Environment Variable.")
-
-try:
-    ottai_base_url = str(os.environ['OTTAI_BASE_URL'])
-except KeyError:
-    ottai_base_url = "https://seas.ottai.com"
-
-try:
-    HOURS_AGO = int(os.environ['HOURS_AGO'])
-except KeyError:
-    sys.exit("HOURS_AGO required. Pass it as an Environment Variable.")
-
-# Функция для извлечения customerid из JWT токена
-def extract_customerid_from_token(token):
-    """Извлечение customerid из JWT токена"""
+def load_config():
+    """Загрузка конфигурации из переменных окружения"""
+    config = {}
+    
     try:
-        parts = token.split('.')
-        if len(parts) >= 2:
-            payload = parts[1]
-            # Добавляем padding если нужно
-            padding = 4 - len(payload) % 4
-            if padding != 4:
-                payload += '=' * padding
-            decoded = base64.urlsafe_b64decode(payload)
-            payload_data = json.loads(decoded)
-            if 'userId' in payload_data:
-                return payload_data['userId']
-    except Exception:
-        pass
-    return None
+        config['ottai_token'] = str(os.environ['OTTAI_TOKEN'])
+    except KeyError:
+        sys.exit("OTTAI_TOKEN required. Pass it as an Environment Variable.")
 
-# Пытаемся получить customerid из переменной окружения или токена
-ottai_customerid = os.environ.get('OTTAI_CUSTOMER_ID')
-if not ottai_customerid:
-    ottai_customerid = extract_customerid_from_token(ottai_token) or ""
+    config['ottai_base_url'] = str(os.environ.get('OTTAI_BASE_URL', "https://seas.ottai.com"))
+    
+    try:
+        config['hours_ago'] = int(os.environ['HOURS_AGO'])
+    except KeyError:
+        sys.exit("HOURS_AGO required. Pass it as an Environment Variable.")
+    
+    config['ottai_customerid'] = os.environ.get('OTTAI_CUSTOMER_ID', "")
+    
+    return config
+
+CONFIG = load_config()
 
 # ========== КОНСТАНТЫ ==========
-ns_unit_convert = 18.018
+NS_UNIT_CONVERT = 18.018
+
+# ========== КЭШ ==========
+_nightscout_config_cache = None
 
 # ========== ФУНКЦИИ ДЛЯ ЗАГОЛОВКОВ ==========
 def get_hash_SHA1(data):
     """Хеширование для Nightscout API secret"""
-    hash_object = hashlib.sha1(data.encode())
-    return hash_object.hexdigest()
+    return hashlib.sha1(data.encode()).hexdigest()
 
 def generate_trace_id():
     """Генерация уникального trace ID"""
@@ -71,9 +56,9 @@ def normalize_email_key(email):
     if not email:
         return None
     
+    # Быстрая нормализация через replace
     username = email.split('@')[0].lower() if '@' in email else email.lower()
-    safe_key = re.sub(r'[^a-z0-9_]', '_', username)
-    return safe_key
+    return re.sub(r'[^a-z0-9_]', '_', username)
 
 def extract_clean_email(email_string):
     """
@@ -83,118 +68,95 @@ def extract_clean_email(email_string):
         return None
     
     email_string = email_string.strip()
-    email_pattern = r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}'
-    match = re.search(email_pattern, email_string)
     
+    # Быстрый поиск email
+    match = re.search(r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}', email_string)
     if match:
         return match.group(0).lower()
     
+    # Если нет совпадения, пытаемся извлечь вручную
     if '@' in email_string:
-        parts = email_string.split()
-        for part in parts:
+        for part in email_string.split():
             if '@' in part:
                 return part.lower()
     
-    return email_string.lower() if email_string else None
+    return email_string.lower()
 
 def get_nightscout_config_by_email(user_email):
     """
-    Получение конфигурации Nightscout для конкретного email
+    Получение конфигурации Nightscout для конкретного email (с кэшированием)
     """
     if not user_email:
         return None, None
     
-    # Сначала пытаемся по полному email (без спецсимволов)
-    full_key = re.sub(r'[^a-z0-9_]', '_', user_email.lower())
-    ns_url_key = f"NS_URL__{full_key}"
-    ns_secret_key = f"NS_SECRET__{full_key}"
+    # Получаем все конфигурации
+    configs = get_all_nightscout_configs()
     
-    ns_url = os.environ.get(ns_url_key)
-    ns_secret = os.environ.get(ns_secret_key)
-    
-    if ns_url and ns_secret:
-        return ns_url.strip(), ns_secret.strip()
-    
-    # Если не нашли, пытаемся по имени пользователя (до @)
-    config_key = normalize_email_key(user_email)
-    if config_key:
-        ns_url_key = f"NS_URL__{config_key}"
-        ns_secret_key = f"NS_SECRET__{config_key}"
-        
-        ns_url = os.environ.get(ns_url_key)
-        ns_secret = os.environ.get(ns_secret_key)
-        
-        if ns_url and ns_secret:
-            return ns_url.strip(), ns_secret.strip()
+    # Ищем конфигурацию по email
+    user_key = normalize_email_key(user_email)
+    if user_key and user_key in configs:
+        return configs[user_key]
     
     return None, None
 
 def get_all_nightscout_configs():
     """
-    Получение всех конфигураций Nightscout из переменных окружения
-    Поддерживает оба формата: NS_SECRET__ и NS_API_SECRET__
+    Получение всех конфигураций Nightscout из переменных окружения (с кэшированием)
     """
+    global _nightscout_config_cache
+    
+    # Если есть кэш, возвращаем его
+    if _nightscout_config_cache is not None:
+        return _nightscout_config_cache
+    
     configs = {}
+    env_vars = os.environ
     
-    for env_key, ns_url in os.environ.items():
-        if env_key.startswith("NS_URL__"):
-            config_key = env_key[8:]  # Убираем "NS_URL__" префикс
+    # Быстрый поиск по переменным окружения
+    for key, value in env_vars.items():
+        if key.startswith("NS_URL__"):
+            config_key = key[8:]  # Убираем "NS_URL__"
             
-            # Пробуем оба варианта ключей для секрета
-            ns_secret = None
-            
-            # Вариант 1: NS_SECRET__ (основной формат)
-            ns_secret_key = f"NS_SECRET__{config_key}"
-            if ns_secret_key in os.environ:
-                ns_secret = os.environ[ns_secret_key]
-            
-            # Вариант 2: NS_API_SECRET__ (альтернативный формат)
-            if not ns_secret:
-                ns_api_secret_key = f"NS_API_SECRET__{config_key}"
-                if ns_api_secret_key in os.environ:
-                    ns_secret = os.environ[ns_api_secret_key]
-            
-            if ns_url and ns_secret:
-                configs[config_key] = (ns_url.strip(), ns_secret.strip())
+            if config_key:
+                # Ищем секрет
+                secret = env_vars.get(f"NS_SECRET__{config_key}")
+                if not secret:
+                    secret = env_vars.get(f"NS_API_SECRET__{config_key}")
+                
+                if secret:
+                    configs[config_key] = (value.strip(), secret.strip())
     
+    # Кэшируем результат
+    _nightscout_config_cache = configs
     return configs
 
-# ========== БАЗОВЫЕ ЗАГОЛОВКИ OTTAI (из вашего дампа) ==========
-common_ottai_headers = {
-    "authorization": ottai_token,
-    "user-agent": "Dart/3.8 (dart:io)",
-    "ua": "android",
-    "deviceid": "Ottai Share:a:f:ee77b3508c1914df75fd5073c4450a9c",
-    "accept-encoding": "gzip",
-    "appname": "Ottai Share",
-    "timestamp": "",  # Будет заполнено динамически
-    "versioncode": "254921",
-    "country": "RU",
-    "traceid": "",  # Будет заполнено динамически
-    "language": "ru",
-    "timezone": "10800",
-    "region": "RU",
-    "packagename": "com.ottai.share",
-    "host": "seas.ottai.com",
-    "unit": "mmol_L",
-    "timezonename": "MSK",
-    "customerid": ottai_customerid,
-    "versionname": "1.8.0",
-}
-
-# ========== ЗАГОЛОВКИ ДЛЯ ЗАПРОСА linkQueryList ==========
-ottai_header_one_entries = common_ottai_headers.copy()
-
-# ========== ЗАГОЛОВКИ ДЛЯ ЗАПРОСА queryMonitorBase ==========
-def get_ottai_headers_for_user():
-    """Создание заголовков для запроса массива записей"""
-    headers = common_ottai_headers.copy()
-    headers.update({
-        "traceid": generate_trace_id(),
+# ========== БАЗОВЫЕ ЗАГОЛОВКИ OTTAI ==========
+def get_common_ottai_headers():
+    """Создание базовых заголовков Ottai"""
+    return {
+        "authorization": CONFIG['ottai_token'],
+        "user-agent": "Dart/3.8 (dart:io)",
+        "ua": "android",
+        "deviceid": "Ottai Share:a:f:ee77b3508c1914df75fd5073c4450a9c",
+        "accept-encoding": "gzip",
+        "appname": "Ottai Share",
         "timestamp": str(generate_timestamp()),
-    })
-    return headers
+        "versioncode": "254921",
+        "country": "RU",
+        "traceid": generate_trace_id(),
+        "language": "ru",
+        "timezone": "10800",
+        "region": "RU",
+        "packagename": "com.ottai.share",
+        "host": "seas.ottai.com",
+        "unit": "mmol_L",
+        "timezonename": "MSK",
+        "customerid": CONFIG['ottai_customerid'],
+        "versionname": "1.8.0",
+    }
 
-# ========== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ==========
-nightscout_configs = get_all_nightscout_configs()
-user_configs = []
+# ========== ЭКСПОРТ ПЕРЕМЕННЫХ ==========
+OTTAI_TOKEN = CONFIG['ottai_token']
+OTTAI_BASE_URL = CONFIG['ottai_base_url']
+HOURS_AGO = CONFIG['hours_ago']
+OTTAI_CUSTOMERID = CONFIG['ottai_customerid']
