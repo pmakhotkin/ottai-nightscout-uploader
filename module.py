@@ -4,13 +4,17 @@ import json
 import datetime
 from datetime import timedelta
 import traceback
+import re
 
-# Импортируем необходимые переменные и функции из setup
-from setup import HOURS_AGO, ns_unit_convert, ns_uploder, ns_url, ns_header
-from setup import ottai_base_url, ottai_header_one_entries, init_ottai_headers
-
-# Импортируем сам модуль setup для доступа к глобальной переменной
-import setup
+# Импортируем необходимые компоненты из setup
+from setup import (
+    HOURS_AGO, ns_unit_convert, 
+    get_ottai_headers_for_user,
+    ottai_base_url, ottai_header_one_entries,
+    get_nightscout_config_by_email, extract_clean_email, normalize_email_key,
+    get_all_nightscout_configs, nightscout_configs,
+    get_hash_SHA1
+)
 
 def convert_mmoll_to_mgdl(x):
     """Конвертация ммоль/л в мг/дл"""
@@ -19,106 +23,236 @@ def convert_mmoll_to_mgdl(x):
     except (TypeError, ValueError):
         return 0
 
-def convert_mgdl_to_mmoll(x):
-    """Конвертация мг/дл в ммоль/л"""
+def get_all_users_from_ottai():
+    """
+    Получение списка всех пользователей из Ottai
+    """
     try:
-        return round(float(x) / ns_unit_convert, 1)
-    except (TypeError, ValueError):
-        return 0.0
-
-def get_last_entry_date():
-    """Получение даты последней записи из Nightscout"""
-    try:
-        url = f"{ns_url}/api/v1/slice/entries/dateString/sgv/.*/.*?count=1"
-        r = requests.get(url, headers=ns_header, timeout=10)
+        url = f"{ottai_base_url}/link/application/app/tagFromInviteLink/linkQueryList/v2"
+        print(f"\n[DEBUG] === ЗАПРОС СПИСКА ПОЛЬЗОВАТЕЛЕЙ ===")
+        print(f"[DEBUG] Метод: POST")
+        print(f"[DEBUG] URL: {url}")
+        
+        r = requests.post(url, headers=ottai_header_one_entries, timeout=30)
+        
+        print(f"[DEBUG] Ответ: {r.status_code} {r.reason}")
         
         if r.status_code != 200:
+            print(f"[ERROR] Ошибка запроса пользователей: {r.status_code}")
+            if r.text:
+                print(f"[DEBUG] Тело ответа: {r.text[:500]}")
+            return []
+            
+        data = r.json()
+        
+        if 'data' in data and isinstance(data['data'], list):
+            users = []
+            for user_item in data['data']:
+                email = None
+                possible_email_fields = ['fromUserEmail', 'remark', 'email', 'userEmail']
+                
+                for field in possible_email_fields:
+                    if field in user_item and user_item[field]:
+                        email = user_item[field]
+                        email = email.strip()
+                        break
+                
+                user_id = user_item.get('fromUserId') or user_item.get('id')
+                
+                if email and user_id:
+                    users.append({
+                        'email': email,
+                        'fromUserId': user_id,
+                        'raw_data': user_item
+                    })
+                    print(f"[DEBUG] Найден пользователь: {email} (ID: {user_id})")
+            
+            print(f"[DEBUG] Всего пользователей: {len(users)}")
+            return users
+        else:
+            print("[ERROR] Неожиданная структура ответа")
+            return []
+            
+    except Exception as e:
+        print(f"[ERROR] Ошибка при получении пользователей: {str(e)}")
+        traceback.print_exc()
+        return []
+
+def create_user_config(user_email, from_user_id):
+    """
+    Создание конфигурации пользователя
+    """
+    ns_url, ns_secret = get_nightscout_config_by_email(user_email)
+    
+    if not ns_url or not ns_secret:
+        return None
+    
+    config_key = normalize_email_key(user_email) or f"user_{from_user_id}"
+    
+    user_config = {
+        'email': user_email,
+        'from_user_id': from_user_id,
+        'ns_url': ns_url.rstrip('/'),
+        'ns_secret': ns_secret,
+        'config_key': config_key,
+        'ns_uploder': f"Ottai-{config_key}"
+    }
+    
+    # Создаем заголовки Nightscout
+    user_config['ns_header'] = {
+        "api-secret": get_hash_SHA1(ns_secret),
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+    }
+    
+    # Создаем заголовки Ottai для этого пользователя
+    user_config['ottai_headers'] = get_ottai_headers_for_user()
+    
+    return user_config
+
+def display_available_masters(all_users):
+    """
+    Отображение всех доступных мастеров
+    """
+    print("\n" + "="*80)
+    print("ДОСТУПНЫЕ МАСТЕРЫ В OTTAI")
+    print("="*80)
+    
+    if not all_users:
+        print("❌ Нет доступных мастеров в Ottai")
+        return []
+    
+    print(f"Всего мастеров в Ottai: {len(all_users)}")
+    print("\nСписок мастеров:")
+    print("-"*80)
+    
+    master_statuses = []
+    
+    for idx, user in enumerate(all_users, 1):
+        email = user['email']
+        user_id = user['fromUserId']
+        clean_email = extract_clean_email(email)
+        
+        ns_url, ns_secret = get_nightscout_config_by_email(clean_email or email)
+        status = "✅ НАСТРОЕН" if ns_url and ns_secret else "❌ НЕ НАСТРОЕН"
+        
+        config_key = "—"
+        if ns_url and ns_secret:
+            config_key = normalize_email_key(clean_email or email) or "unknown"
+        
+        master_statuses.append({
+            'index': idx,
+            'email': email,
+            'clean_email': clean_email,
+            'user_id': user_id,
+            'configured': bool(ns_url and ns_secret),
+            'config_key': config_key
+        })
+        
+        print(f"{idx:2d}. {email}")
+        print(f"    ID: {user_id}")
+        print(f"    Статус: {status}")
+        if ns_url and ns_secret:
+            print(f"    Конфиг: {config_key}")
+            print(f"    Nightscout URL: {ns_url[:50]}...")
+        print()
+    
+    return master_statuses
+
+def check_nightscout_connection(user_config):
+    """
+    Проверка соединения с Nightscout
+    """
+    try:
+        base_url = user_config['ns_url']
+        if not base_url.endswith('/api/v1'):
+            base_url = f"{base_url}/api/v1"
+        
+        url = f"{base_url}/status"
+        print(f"[DEBUG] Проверка соединения с Nightscout: GET {url}")
+        
+        r = requests.get(url, headers=user_config['ns_header'], timeout=10)
+        
+        print(f"[DEBUG] Статус Nightscout: {r.status_code}")
+        if r.status_code == 200:
+            print(f"[DEBUG] ✅ Nightscout доступен")
+            return True
+        else:
+            print(f"[DEBUG] ❌ Nightscout ошибка: {r.status_code}")
+            if r.text:
+                print(f"[DEBUG] Ответ Nightscout: {r.text[:200]}")
+            return False
+            
+    except Exception as e:
+        print(f"[DEBUG] ❌ Ошибка соединения с Nightscout: {str(e)}")
+        return False
+
+def get_last_entry_date(user_config):
+    """
+    Получение даты последней записи из Nightscout
+    """
+    try:
+        base_url = user_config['ns_url']
+        if not base_url.endswith('/api/v1'):
+            base_url = f"{base_url}/api/v1"
+        
+        url = f"{base_url}/api/v1/slice/entries/dateString/sgv/.*/.*?count=1"
+        print(f"[DEBUG] Запрос последней записи: GET {url}")
+        
+        r = requests.get(url, headers=user_config['ns_header'], timeout=10)
+        
+        if r.status_code != 200:
+            print(f"[DEBUG] Ошибка Nightscout: {r.status_code}")
             return None
         
         data = r.json()
         
         if not data or not isinstance(data, list) or len(data) == 0:
+            print(f"[DEBUG] Nightscout пуст")
             return None
         
-        last_entry = data[0]
-        if 'date' not in last_entry:
-            return None
+        last_date = data[0]["date"]
+        date_str = datetime.datetime.fromtimestamp(last_date/1000).strftime('%Y-%m-%d %H:%M:%S')
+        print(f"[DEBUG] Последняя запись в Nightscout: {date_str}")
             
-        return last_entry["date"]
+        return last_date
         
-    except Exception:
+    except Exception as e:
+        print(f"[DEBUG] Ошибка при получении последней записи: {str(e)}")
         return None
 
-def get_fromUserId():
-    """Получение fromUserId из Ottai"""
-    try:
-        url = f"{ottai_base_url}/link/application/app/tagFromInviteLink/linkQueryList/v2"
-        r = requests.post(url, headers=ottai_header_one_entries, timeout=30)
-        
-        if r.status_code != 200:
-            return None
-            
-        data = r.json()
-        
-        # Ищем fromUserId в различных местах
-        fromUserId = None
-        
-        if 'fromUserId' in data:
-            fromUserId = data['fromUserId']
-        elif 'data' in data and isinstance(data['data'], dict) and 'fromUserId' in data['data']:
-            fromUserId = data['data']['fromUserId']
-        elif 'data' in data and isinstance(data['data'], list) and len(data['data']) > 0:
-            first_item = data['data'][0]
-            if 'fromUserId' in first_item:
-                fromUserId = first_item['fromUserId']
-            elif 'id' in first_item:
-                fromUserId = first_item['id']
-        elif 'user' in data and 'id' in data['user']:
-            fromUserId = data['user']['id']
-        
-        return str(fromUserId) if fromUserId else None
-            
-    except Exception:
-        return None
-
-def get_ottai_array_of_entries():
+def process_user_data(user_config):
     """
-    Получение массива записей из Ottai с правильной дельтой
+    Обработка данных для конкретного пользователя
     """
-    # 1. Определяем начальное время (дельта)
-    last_ns_date = get_last_entry_date()
+    print(f"\n[USER] === ОБРАБОТКА ПОЛЬЗОВАТЕЛЯ: {user_config['email']} ===")
+    
+    # 1. Проверяем соединение с Nightscout
+    if not check_nightscout_connection(user_config):
+        print(f"[ERROR] Nightscout недоступен для {user_config['email']}")
+        return
+    
+    # 2. Получаем последнюю запись из Nightscout
+    last_ns_date = get_last_entry_date(user_config)
     
     if last_ns_date:
-        # Если есть записи в Nightscout, начинаем с последней + 1 мс
         start_time = last_ns_date + 1
-        print(f"Продолжаем с последней записи Nightscout")
+        start_str = datetime.datetime.fromtimestamp(start_time/1000).strftime('%Y-%m-%d %H:%M:%S')
+        print(f"[DEBUG] Продолжаем с: {start_str}")
     else:
-        # Если в Nightscout нет данных, загружаем данные за HOURS_AGO часов
         start_time = int(round((datetime.datetime.now() - timedelta(hours=HOURS_AGO)).timestamp() * 1000))
-        print(f"Загружаем данные за последние {HOURS_AGO} часов")
-    
-    # 2. Инициализируем заголовки
-    if setup.ottai_header_array_entries is None:
-        init_ottai_headers()
-    
-    headers = setup.ottai_header_array_entries
-    
-    # 3. Получаем fromUserId
-    fromUserId = get_fromUserId()
-    if fromUserId is None:
-        print("Не удалось получить fromUserId")
-        return None
+        start_str = datetime.datetime.fromtimestamp(start_time/1000).strftime('%Y-%m-%d %H:%M:%S')
+        print(f"[DEBUG] Загружаем данные за {HOURS_AGO} часов, начиная с: {start_str}")
     
     current_time = int(round(datetime.datetime.now().timestamp() * 1000))
     
-    # Если начальное время больше или равно текущему, нет новых данных
     if start_time >= current_time:
-        print("Нет новых данных для загрузки")
-        return None
+        print(f"[INFO] Нет новых данных")
+        return
     
-    # Формируем параметры запроса
+    # 3. Формируем запрос к Ottai
     params = {
-        'fromUserId': fromUserId,
+        'fromUserId': user_config['from_user_id'],
         'isOpen': 0,
         'startTime': start_time,
         'endTime': current_time
@@ -127,47 +261,50 @@ def get_ottai_array_of_entries():
     try:
         url = f"{ottai_base_url}/link/application/search/tag/queryMonitorBase"
         
-        print(f"Запрос данных за период: {datetime.datetime.fromtimestamp(start_time/1000).strftime('%H:%M')} - {datetime.datetime.fromtimestamp(current_time/1000).strftime('%H:%M')}")
+        print(f"\n[DEBUG] === ЗАПРОС ДАННЫХ OTTAI ===")
+        print(f"[DEBUG] Метод: GET")
+        print(f"[DEBUG] URL: {url}")
+        print(f"[DEBUG] Параметры: {params}")
         
         r = requests.get(url, 
-                        headers=headers, 
+                        headers=user_config['ottai_headers'], 
                         params=params,
                         timeout=30)
         
+        print(f"[DEBUG] Ответ Ottai: {r.status_code} {r.reason}")
+        
         if r.status_code != 200:
-            print(f"Ошибка запроса: {r.status_code}")
-            return None
+            print(f"[ERROR] Ошибка запроса Ottai: {r.status_code}")
+            if r.text:
+                print(f"[DEBUG] Тело ответа: {r.text[:500]}")
+            return
         
-        # Проверяем Content-Type
-        content_type = r.headers.get('Content-Type', '').lower()
-        if 'application/json' not in content_type:
-            print(f"Ошибка: получен не JSON ответ")
-            return None
-            
         data = r.json()
+        print(f"[DEBUG] Успешно получены данные от Ottai")
         
-        # Проверяем код ответа
-        if 'code' in data and data['code'] != "OK":
-            print(f"Ошибка от Ottai: {data.get('msg', 'Unknown error')}")
-            return None
+        # Выводим структуру ответа для отладки
+        print(f"[DEBUG] Структура ответа: {json.dumps(data, indent=2)[:1000]}...")
         
-        return data
+        # 4. Обрабатываем данные
+        successful_uploads = process_user_json_data(user_config, data)
         
-    except requests.JSONDecodeError:
-        print("Ошибка декодирования JSON ответа")
-        return None
+        if successful_uploads > 0:
+            print(f"[SUCCESS] ✅ Загружено {successful_uploads} записей в Nightscout")
+        else:
+            print(f"[INFO] ℹ️  Нет новых записей для загрузки")
+        
     except Exception as e:
-        print(f"Ошибка при получении данных: {str(e)}")
-        return None
+        print(f"[ERROR] Ошибка при обработке пользователя: {str(e)}")
+        traceback.print_exc()
 
-def process_json_data(data):
-    """Обработка JSON данных и загрузка в Nightscout"""
-    if data is None:
-        print("Нет данных для обработки")
-        return
+def process_user_json_data(user_config, data):
+    """
+    Обработка JSON данных и загрузка в Nightscout
+    """
+    if not data:
+        return 0
     
     try:
-        # Ищем данные в структуре
         curve_list = None
         
         if 'data' in data and isinstance(data['data'], dict) and 'curveList' in data['data']:
@@ -175,66 +312,137 @@ def process_json_data(data):
         elif 'curveList' in data and isinstance(data['curveList'], list):
             curve_list = data['curveList']
         else:
-            print("Неизвестная структура данных")
-            return
+            print(f"[DEBUG] Неизвестная структура данных")
+            return 0
         
-        if not curve_list or not isinstance(curve_list, list):
-            print("Нет данных для загрузки")
-            return
-            
+        if not curve_list:
+            print(f"[DEBUG] Нет данных для обработки")
+            return 0
+        
+        print(f"[DEBUG] Найдено {len(curve_list)} записей для обработки")
+        
         successful_uploads = 0
-        total_records = len(curve_list)
         
-        for item in curve_list:
+        for i, item in enumerate(curve_list[:10]):  # Ограничим вывод первых 10 записей
             try:
-                if not isinstance(item, dict):
-                    continue
-                
-                # Проверяем обязательные поля
                 if 'adjustGlucose' not in item or 'monitorTime' not in item:
                     continue
                 
-                # Конвертируем значения
-                try:
-                    glucose = float(item['adjustGlucose'])
-                    timestamp = int(item['monitorTime'])
-                except (ValueError, TypeError):
-                    continue
+                glucose = float(item['adjustGlucose'])
+                timestamp = int(item['monitorTime'])
+                time_str = datetime.datetime.fromtimestamp(timestamp/1000).strftime('%H:%M:%S')
+                print(f"[DEBUG] Запись {i}: {glucose} ммоль/л в {time_str}")
                 
                 entry_dict = {
                     "type": "sgv",
                     "sgv": convert_mmoll_to_mgdl(glucose),
                     "direction": "FortyFiveUp",
-                    "device": ns_uploder,
+                    "device": user_config['ns_uploder'],
                     "date": timestamp,
                     "dateString": datetime.datetime.utcfromtimestamp(timestamp/1000).isoformat(timespec='milliseconds') + "Z"
                 }
                 
-                # Загружаем запись
-                if upload_entry(entry_dict):
+                # Загружаем запись в Nightscout
+                if upload_entry_to_nightscout(user_config, entry_dict):
                     successful_uploads += 1
                     
-            except Exception:
+            except Exception as e:
+                print(f"[DEBUG] Ошибка обработки записи {i}: {str(e)}")
                 continue
         
-        if successful_uploads > 0:
-            print(f"Загружено {successful_uploads} новых записей")
+        if len(curve_list) > 10:
+            print(f"[DEBUG] ... и еще {len(curve_list) - 10} записей")
+        
+        return successful_uploads
         
     except Exception as error:
-        print(f"Ошибка обработки данных: {error}")
+        print(f"[ERROR] Ошибка обработки JSON данных: {str(error)}")
+        return 0
 
-def upload_entry(entry_dict):
-    """Загрузка одной записи в Nightscout"""
+def upload_entry_to_nightscout(user_config, entry_dict):
+    """
+    Загрузка одной записи в Nightscout
+    """
     try:
-        r = requests.post(f"{ns_url}/entries", 
-                         headers=ns_header, 
+        base_url = user_config['ns_url']
+        if not base_url.endswith('/api/v1'):
+            base_url = f"{base_url}/api/v1"
+        
+        url = f"{base_url}/entries"
+        
+        print(f"[DEBUG] Отправка в Nightscout: POST {url}")
+        print(f"[DEBUG] Данные записи: {json.dumps(entry_dict)}")
+        
+        r = requests.post(url, 
+                         headers=user_config['ns_header'], 
                          json=entry_dict,
                          timeout=10)
         
+        print(f"[DEBUG] Ответ Nightscout: {r.status_code} {r.reason}")
+        
         if r.status_code == 200:
+            time_str = datetime.datetime.fromtimestamp(entry_dict['date']/1000).strftime('%H:%M:%S')
+            print(f"[DEBUG] ✅ Запись {time_str} успешно загружена")
             return True
         else:
+            print(f"[DEBUG] ❌ Ошибка загрузки: {r.status_code}")
+            if r.text:
+                print(f"[DEBUG] Ответ Nightscout: {r.text[:200]}")
             return False
             
-    except Exception:
+    except Exception as e:
+        print(f"[ERROR] Ошибка при загрузке в Nightscout: {str(e)}")
         return False
+
+def process_all_users():
+    """
+    Основная функция обработки данных
+    """
+    print("\n" + "="*80)
+    print("=== НАЧАЛО ОБРАБОТКИ ===")
+    print("="*80)
+    
+    # Получаем всех пользователей
+    all_users = get_all_users_from_ottai()
+    
+    if not all_users:
+        print("❌ Не удалось получить пользователей из Ottai")
+        return
+    
+    # Отображаем мастеров
+    master_statuses = display_available_masters(all_users)
+    
+    # Фильтруем настроенных пользователей
+    configured_users = []
+    for user in all_users:
+        email = extract_clean_email(user['email']) or user['email']
+        ns_url, ns_secret = get_nightscout_config_by_email(email)
+        if ns_url and ns_secret:
+            user_config = create_user_config(email, user['fromUserId'])
+            if user_config:
+                configured_users.append(user_config)
+    
+    print(f"\n[INFO] Настроено пользователей: {len(configured_users)}")
+    
+    if not configured_users:
+        print("\n💡 ДОБАВЬТЕ ПЕРЕМЕННЫЕ ОКРУЖЕНИЯ:")
+        print("   Для каждого пользователя нужно добавить две переменные:")
+        print()
+        
+        for master in master_statuses:
+            if not master['configured']:
+                print(f"   Для пользователя '{master['email']}':")
+                normalized_key = normalize_email_key(master['clean_email'] or master['email'])
+                if normalized_key:
+                    print(f"   NS_URL__{normalized_key}=https://ваш_nightscout.herokuapp.com")
+                    print(f"   NS_SECRET__{normalized_key}=ваш_секрет")
+                print()
+        return
+    
+    # Обрабатываем каждого пользователя
+    for user_config in configured_users:
+        process_user_data(user_config)
+    
+    print("\n" + "="*80)
+    print("=== ОБРАБОТКА ЗАВЕРШЕНА ===")
+    print("="*80)
