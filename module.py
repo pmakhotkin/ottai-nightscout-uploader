@@ -253,47 +253,9 @@ def _check_nightscout_connection_raw(user_config):
     except Exception:
         return False
 
-def get_last_entry_date_fast(user_config):
-    """
-    Быстрое получение даты последней записи из Nightscout
-    """
-    try:
-        base_url = user_config['ns_url']
-        session = user_config['session']
-        
-        endpoints = [
-            f"{base_url}/api/v1/entries.json?count=1",
-            f"{base_url}/api/v1/entries/sgv.json?count=1"
-        ]
-        
-        for url in endpoints:
-            try:
-                response = session.get(url, headers=user_config['ns_header'], timeout=10, verify=not DISABLE_SSL_VERIFY)
-                
-                if response.status_code == 200:
-                    data = response.json()
-                    if data and isinstance(data, list) and len(data) > 0 and 'date' in data[0]:
-                        return data[0]['date']
-            except requests.exceptions.SSLError:
-                try:
-                    response = session.get(url, headers=user_config['ns_header'], timeout=10, verify=False)
-                    if response.status_code == 200:
-                        data = response.json()
-                        if data and isinstance(data, list) and len(data) > 0 and 'date' in data[0]:
-                            return data[0]['date']
-                except:
-                    continue
-            except:
-                continue
-        
-        return None
-        
-    except Exception:
-        return None
-
 def get_ottai_data_batch(user_config, start_time, end_time):
     """
-    Получение данных из Ottai пакетами (ИСПРАВЛЕННЫЙ ВАРИАНТ - использует GET вместо POST)
+    Получение данных из Ottai пакетами (использует GET запрос)
     """
     try:
         url = f"{OTTAI_BASE_URL}/link/application/search/tag/queryMonitorBase"
@@ -315,10 +277,9 @@ def get_ottai_data_batch(user_config, start_time, end_time):
         print(f"[DEBUG] End time: {datetime.datetime.fromtimestamp(end_time/1000).strftime('%Y-%m-%d %H:%M:%S')}")
         print(f"[DEBUG] Time range: {(end_time - start_time) / 1000 / 60:.1f} минут")
         
-        # ИСПРАВЛЕНИЕ: используем session.get вместо session.post
         response = session.get(url, 
                              headers=user_config['ottai_headers'], 
-                             params=params,  # Параметры передаются как query string
+                             params=params,
                              timeout=REQUEST_TIMEOUT,
                              verify=not DISABLE_SSL_VERIFY)
         
@@ -465,7 +426,8 @@ def send_to_nightscout_batch(user_config, entries):
     # Отправляем по одной записи для лучшей отладки
     for i, entry in enumerate(entries):
         try:
-            print(f"[DEBUG] Отправка записи {i+1}/{len(entries)}: {entry['dateString']}, глюкоза: {entry['sgv']}")
+            time_str = datetime.datetime.fromtimestamp(entry['date']/1000).strftime('%H:%M:%S')
+            print(f"[DEBUG] Отправка записи {i+1}/{len(entries)}: {time_str}, глюкоза: {entry['sgv']}")
             
             response = session.post(url, 
                                    headers=user_config['ns_header'], 
@@ -475,9 +437,9 @@ def send_to_nightscout_batch(user_config, entries):
             
             if response.status_code == 200:
                 successful += 1
-                print(f"[DEBUG] ✅ Запись {i+1} отправлена успешно")
+                print(f"[DEBUG] ✅ Запись {time_str} отправлена успешно")
             else:
-                print(f"[ERROR] Ошибка при отправке записи {i+1}: {response.status_code}")
+                print(f"[ERROR] Ошибка при отправке записи {time_str}: {response.status_code}")
                 if response.text:
                     print(f"[DEBUG] Ответ Nightscout: {response.text[:200]}")
         except requests.exceptions.SSLError:
@@ -489,19 +451,20 @@ def send_to_nightscout_batch(user_config, entries):
                                        verify=False)
                 if response.status_code == 200:
                     successful += 1
-                    print(f"[DEBUG] ✅ Запись {i+1} отправлена успешно (с отключенным SSL)")
+                    print(f"[DEBUG] ✅ Запись {time_str} отправлена успешно (с отключенным SSL)")
                 else:
-                    print(f"[ERROR] Ошибка SSL при отправке записи {i+1}: {response.status_code}")
+                    print(f"[ERROR] Ошибка SSL при отправке записи {time_str}: {response.status_code}")
             except Exception as e:
                 print(f"[ERROR] SSL ошибка при отправке в Nightscout: {e}")
         except Exception as e:
-            print(f"[ERROR] Ошибка при отправке записи {i+1}: {e}")
+            print(f"[ERROR] Ошибка при отправке записи {time_str}: {e}")
     
     return successful
 
 def process_user_data_optimized(user_config):
     """
-    Оптимизированная обработка данных пользователя
+    Оптимизированная обработка данных пользователя БЕЗ учета последней записи
+    Просто загружаем данные за фиксированный период и отправляем их
     """
     print(f"\n[USER] {user_config['email']} (ID: {user_config['from_user_id']})")
     
@@ -509,25 +472,23 @@ def process_user_data_optimized(user_config):
         print(f"  ❌ Nightscout недоступен")
         return 0
     
-    last_ns_date = get_last_entry_date_fast(user_config)
+    # Фиксированный временной диапазон - за HOURS_AGO часов
+    end_time = int(datetime.datetime.now().timestamp() * 1000)
+    start_time = int((datetime.datetime.now() - timedelta(hours=HOURS_AGO)).timestamp() * 1000)
     
-    if last_ns_date:
-        start_time = last_ns_date + 1
-        start_str = datetime.datetime.fromtimestamp(start_time/1000).strftime('%Y-%m-%d %H:%M:%S')
-        print(f"  📊 Продолжаем с последней записи: {start_str}")
-    else:
-        # Загружаем данные за последние 24 часа
-        start_time = int((datetime.datetime.now() - timedelta(hours=24)).timestamp() * 1000)
-        start_str = datetime.datetime.fromtimestamp(start_time/1000).strftime('%Y-%m-%d %H:%M:%S')
-        print(f"  📊 Загружаем за 24 часа, начиная с: {start_str}")
+    start_str = datetime.datetime.fromtimestamp(start_time/1000).strftime('%Y-%m-%d %H:%M:%S')
+    end_str = datetime.datetime.fromtimestamp(end_time/1000).strftime('%Y-%m-%d %H:%M:%S')
     
-    current_time = int(datetime.datetime.now().timestamp() * 1000)
+    print(f"  📊 Загружаем данные за {HOURS_AGO} часов")
+    print(f"     Начало: {start_str}")
+    print(f"     Конец:  {end_str}")
     
-    if start_time >= current_time:
-        print(f"  ℹ️ Нет новых данных")
+    if start_time >= end_time:
+        print(f"  ℹ️ Некорректный временной диапазон")
         return 0
     
-    curve_list = get_ottai_data_batch(user_config, start_time, current_time)
+    # Получаем данные из Ottai
+    curve_list = get_ottai_data_batch(user_config, start_time, end_time)
     
     if not curve_list:
         print(f"  ℹ️ Нет данных в Ottai")
@@ -535,12 +496,21 @@ def process_user_data_optimized(user_config):
     
     print(f"  📥 Получено {len(curve_list)} записей из Ottai")
     
+    # Подготавливаем записи для Nightscout
     entries = prepare_nightscout_entries(curve_list, user_config)
     
     if not entries:
         print(f"  ℹ️ Нет записей для обработки")
         return 0
     
+    print(f"  📊 Диапазон данных в Ottai:")
+    if entries:
+        first_time = datetime.datetime.fromtimestamp(entries[0]['date']/1000).strftime('%H:%M:%S')
+        last_time = datetime.datetime.fromtimestamp(entries[-1]['date']/1000).strftime('%H:%M:%S')
+        print(f"     Первая запись: {first_time}")
+        print(f"     Последняя запись: {last_time}")
+    
+    # Отправляем записи в Nightscout
     successful = send_to_nightscout_batch(user_config, entries)
     
     if successful > 0:
@@ -573,6 +543,7 @@ def process_all_users_optimized():
     """
     print("\n" + "="*80)
     print(f"🚀 НАЧАЛО ОБРАБОТКИ (SSL: {'Отключена' if DISABLE_SSL_VERIFY else 'Включена'})")
+    print(f"📊 Загружаем данные за {HOURS_AGO} часов для каждого пользователя")
     print("="*80)
     
     all_users = get_all_users_from_ottai_cached()
