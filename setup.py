@@ -6,6 +6,10 @@ import time
 import re
 import base64
 import json
+import warnings
+
+# Подавляем предупреждения SSL
+warnings.filterwarnings('ignore', message='Unverified HTTPS request')
 
 # ========== ПРОВЕРКА ПЕРЕМЕННЫХ ОКРУЖЕНИЯ ==========
 def load_config():
@@ -25,6 +29,9 @@ def load_config():
         sys.exit("HOURS_AGO required. Pass it as an Environment Variable.")
     
     config['ottai_customerid'] = os.environ.get('OTTAI_CUSTOMER_ID', "")
+    
+    # Настройка SSL
+    config['disable_ssl_verify'] = os.environ.get('DISABLE_SSL_VERIFY', 'True').lower() in ('true', '1', 'yes')
     
     return config
 
@@ -50,31 +57,24 @@ def generate_timestamp():
     return int(time.time() * 1000)
 
 def normalize_email_key(email):
-    """
-    Преобразование email в безопасный ключ для переменных окружения
-    """
+    """Преобразование email в безопасный ключ"""
     if not email:
         return None
     
-    # Быстрая нормализация через replace
     username = email.split('@')[0].lower() if '@' in email else email.lower()
     return re.sub(r'[^a-z0-9_]', '_', username)
 
 def extract_clean_email(email_string):
-    """
-    Очистка email от лишних символов и извлечение чистого email
-    """
+    """Извлечение чистого email"""
     if not email_string:
         return None
     
     email_string = email_string.strip()
-    
-    # Быстрый поиск email
     match = re.search(r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}', email_string)
+    
     if match:
         return match.group(0).lower()
     
-    # Если нет совпадения, пытаемся извлечь вручную
     if '@' in email_string:
         for part in email_string.split():
             if '@' in part:
@@ -83,42 +83,33 @@ def extract_clean_email(email_string):
     return email_string.lower()
 
 def get_nightscout_config_by_email(user_email):
-    """
-    Получение конфигурации Nightscout для конкретного email (с кэшированием)
-    """
+    """Получение конфигурации Nightscout для email"""
     if not user_email:
         return None, None
     
-    # Получаем все конфигурации
     configs = get_all_nightscout_configs()
-    
-    # Ищем конфигурацию по email
     user_key = normalize_email_key(user_email)
+    
     if user_key and user_key in configs:
         return configs[user_key]
     
     return None, None
 
 def get_all_nightscout_configs():
-    """
-    Получение всех конфигураций Nightscout из переменных окружения (с кэшированием)
-    """
+    """Получение всех конфигураций Nightscout"""
     global _nightscout_config_cache
     
-    # Если есть кэш, возвращаем его
     if _nightscout_config_cache is not None:
         return _nightscout_config_cache
     
     configs = {}
     env_vars = os.environ
     
-    # Быстрый поиск по переменным окружения
     for key, value in env_vars.items():
         if key.startswith("NS_URL__"):
-            config_key = key[8:]  # Убираем "NS_URL__"
+            config_key = key[8:]
             
             if config_key:
-                # Ищем секрет
                 secret = env_vars.get(f"NS_SECRET__{config_key}")
                 if not secret:
                     secret = env_vars.get(f"NS_API_SECRET__{config_key}")
@@ -126,9 +117,13 @@ def get_all_nightscout_configs():
                 if secret:
                     configs[config_key] = (value.strip(), secret.strip())
     
-    # Кэшируем результат
     _nightscout_config_cache = configs
     return configs
+
+def get_all_nightscout_configs_display():
+    """Получение конфигураций для отображения (только количество)"""
+    configs = get_all_nightscout_configs()
+    return len(configs)
 
 # ========== БАЗОВЫЕ ЗАГОЛОВКИ OTTAI ==========
 def get_common_ottai_headers():
@@ -160,3 +155,4 @@ OTTAI_TOKEN = CONFIG['ottai_token']
 OTTAI_BASE_URL = CONFIG['ottai_base_url']
 HOURS_AGO = CONFIG['hours_ago']
 OTTAI_CUSTOMERID = CONFIG['ottai_customerid']
+DISABLE_SSL_VERIFY = CONFIG['disable_ssl_verify']
