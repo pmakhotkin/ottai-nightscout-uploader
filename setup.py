@@ -1,58 +1,158 @@
 import os
 import sys
 import hashlib
+import uuid
+import time
+import re
+import base64
+import json
+import warnings
 
-# Initilisation for local python script
-# OTTAI_TOKEN = ""
-# NS_URL = ""
-# NS_API_SECRET= "" #api_secret
-# HOURS_AGO
+# Подавляем предупреждения SSL
+warnings.filterwarnings('ignore', message='Unverified HTTPS request')
 
-try:
-    ottai_token = str(os.environ['OTTAI_TOKEN'])
-except:
-    sys.exit("OTTAI_TOKEN required. Pass it as an Environment Variable.")
+# ========== ПРОВЕРКА ПЕРЕМЕННЫХ ОКРУЖЕНИЯ ==========
+def load_config():
+    """Загрузка конфигурации из переменных окружения"""
+    config = {}
+    
+    try:
+        config['ottai_token'] = str(os.environ['OTTAI_TOKEN'])
+    except KeyError:
+        sys.exit("OTTAI_TOKEN required. Pass it as an Environment Variable.")
 
-    ottai_url_array_entries = "https://seas.ottai.com/link/application/search/tag/queryMonitorBase"
+    config['ottai_base_url'] = str(os.environ.get('OTTAI_BASE_URL', "https://seas.ottai.com"))
+    
+    try:
+        config['hours_ago'] = int(os.environ['HOURS_AGO'])
+    except KeyError:
+        sys.exit("HOURS_AGO required. Pass it as an Environment Variable.")
+    
+    config['ottai_customerid'] = os.environ.get('OTTAI_CUSTOMER_ID', "")
+    
+    # Настройка SSL
+    config['disable_ssl_verify'] = os.environ.get('DISABLE_SSL_VERIFY', 'True').lower() in ('true', '1', 'yes')
+    
+    return config
 
-# Nightscout 
-try:
-    ns_url = str(os.environ['NS_URL'])
-except:
-    sys.exit("NS_URL required. Pass it as an Environment Variable.")
+CONFIG = load_config()
 
-try:
-    ns_api_secret = str(os.environ['NS_API_SECRET'])
-except:
-    sys.exit("NS_API_SECRET required. Pass it as an Environment Variable.")
+# ========== КОНСТАНТЫ ==========
+NS_UNIT_CONVERT = 18.018
 
-# uploader initialisation
-ns_uploder = "Ottai-Nightscout-Uploader"
-ns_unit_convert = 18.018
+# ========== КЭШ ==========
+_nightscout_config_cache = None
 
-try:
-    HOURS_AGO = int(os.environ['HOURS_AGO'])
-except:
-    sys.exit("HOURS_AGO required. Pass it as an Environment Variable.")
-
+# ========== ФУНКЦИИ ДЛЯ ЗАГОЛОВКОВ ==========
 def get_hash_SHA1(data):
-    hash_object =hashlib.sha1(data.encode())
-    hex_dig = hash_object.hexdigest()
-    return hex_dig
+    """Хеширование для Nightscout API secret"""
+    return hashlib.sha1(data.encode()).hexdigest()
 
-# header initialisation
-ns_header = {"api-secret": get_hash_SHA1(ns_api_secret),
-             "Content-Type": "application/json",
-             "Accept":"application/json",
-             }
+def generate_trace_id():
+    """Генерация уникального trace ID"""
+    return str(uuid.uuid4())
 
-ottai_header_one_entries = {"authorization":ottai_token,
-                "country": "RU",
-                "language": "RU",
-             }
+def generate_timestamp():
+    """Генерация timestamp в миллисекундах"""
+    return int(time.time() * 1000)
 
-ottai_header_array_entries = {"authorization":ottai_token,
-                "country": "RU",
-                "language": "RU",
-                "timezone": "10800"
-             }
+def normalize_email_key(email):
+    """Преобразование email в безопасный ключ"""
+    if not email:
+        return None
+    
+    username = email.split('@')[0].lower() if '@' in email else email.lower()
+    return re.sub(r'[^a-z0-9_]', '_', username)
+
+def extract_clean_email(email_string):
+    """Извлечение чистого email"""
+    if not email_string:
+        return None
+    
+    email_string = email_string.strip()
+    match = re.search(r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}', email_string)
+    
+    if match:
+        return match.group(0).lower()
+    
+    if '@' in email_string:
+        for part in email_string.split():
+            if '@' in part:
+                return part.lower()
+    
+    return email_string.lower()
+
+def get_nightscout_config_by_email(user_email):
+    """Получение конфигурации Nightscout для email"""
+    if not user_email:
+        return None, None
+    
+    configs = get_all_nightscout_configs()
+    user_key = normalize_email_key(user_email)
+    
+    if user_key and user_key in configs:
+        return configs[user_key]
+    
+    return None, None
+
+def get_all_nightscout_configs():
+    """Получение всех конфигураций Nightscout"""
+    global _nightscout_config_cache
+    
+    if _nightscout_config_cache is not None:
+        return _nightscout_config_cache
+    
+    configs = {}
+    env_vars = os.environ
+    
+    for key, value in env_vars.items():
+        if key.startswith("NS_URL__"):
+            config_key = key[8:]
+            
+            if config_key:
+                secret = env_vars.get(f"NS_SECRET__{config_key}")
+                if not secret:
+                    secret = env_vars.get(f"NS_API_SECRET__{config_key}")
+                
+                if secret:
+                    configs[config_key] = (value.strip(), secret.strip())
+    
+    _nightscout_config_cache = configs
+    return configs
+
+def get_all_nightscout_configs_display():
+    """Получение конфигураций для отображения (только количество)"""
+    configs = get_all_nightscout_configs()
+    return len(configs)
+
+# ========== БАЗОВЫЕ ЗАГОЛОВКИ OTTAI ==========
+def get_common_ottai_headers():
+    """Создание базовых заголовков Ottai"""
+    return {
+        "authorization": CONFIG['ottai_token'],
+        "user-agent": "Dart/3.8 (dart:io)",
+        "ua": "android",
+        "deviceid": "Ottai Share:a:f:ee77b3508c1914df75fd5073c4450a9c",
+        "accept-encoding": "gzip",
+        "appname": "Ottai Share",
+        "timestamp": str(generate_timestamp()),
+        "versioncode": "254921",
+        "country": "RU",
+        "traceid": generate_trace_id(),
+        "language": "ru",
+        "timezone": "10800",
+        "region": "RU",
+        "packagename": "com.ottai.share",
+        "host": "seas.ottai.com",
+        "unit": "mmol_L",
+        "timezonename": "MSK",
+        "customerid": CONFIG['ottai_customerid'],
+        "versionname": "1.8.0",
+    }
+
+# ========== ЭКСПОРТ ПЕРЕМЕННЫХ ==========
+OTTAI_TOKEN = CONFIG['ottai_token']
+OTTAI_BASE_URL = CONFIG['ottai_base_url']
+HOURS_AGO = CONFIG['hours_ago']
+OTTAI_CUSTOMERID = CONFIG['ottai_customerid']
+DISABLE_SSL_VERIFY = CONFIG['disable_ssl_verify']
