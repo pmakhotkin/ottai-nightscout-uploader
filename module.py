@@ -111,10 +111,13 @@ def _get_all_users_from_ottai_raw():
                 
                 user_id = user_item.get('fromUserId') or user_item.get('id')
                 
-                if email and user_id:
+                user_name = user_item.get('userName') or ''
+
+                if user_id:
                     users.append({
-                        'email': email,
+                        'email': email or '',
                         'fromUserId': user_id,
+                        'userName': user_name,
                         'raw_data': user_item
                     })
         
@@ -143,36 +146,40 @@ def display_available_masters(all_users):
     if not all_users:
         print("❌ Нет доступных мастеров в Ottai")
         return []
-    
+
     print(f"Всего мастеров в Ottai: {len(all_users)}")
     print("\nСписок мастеров:")
     print("-"*80)
-    
+
     master_statuses = []
-    
+
     for idx, user in enumerate(all_users, 1):
         email = user['email']
         user_id = user['fromUserId']
+        user_name = user.get('userName', '')
         clean_email = extract_clean_email(email)
-        
-        ns_url, ns_secret = get_nightscout_config_by_email(clean_email or email)
+
+        ns_url, ns_secret = get_nightscout_config_by_email(clean_email or email, user_name, user_id)
         status = "✅ НАСТРОЕН" if ns_url and ns_secret else "❌ НЕ НАСТРОЕН"
-        
+
         config_key = "—"
         if ns_url and ns_secret:
-            config_key = normalize_email_key(clean_email or email) or "unknown"
+            config_key = normalize_email_key(clean_email or email) or user_name or str(user_id) or "unknown"
         
         master_statuses.append({
             'index': idx,
             'email': email,
             'clean_email': clean_email,
+            'user_name': user_name,
             'user_id': user_id,
             'configured': bool(ns_url and ns_secret),
             'config_key': config_key
         })
-        
-        print(f"{idx:2d}. {email}")
+
+        print(f"{idx:2d}. {email or f'(нет email, userName={user_name})'}")
         print(f"    ID: {user_id}")
+        if user_name:
+            print(f"    userName: {user_name}")
         print(f"    Статус: {status}")
         if ns_url and ns_secret:
             print(f"    Конфиг: {config_key}")
@@ -181,16 +188,16 @@ def display_available_masters(all_users):
     
     return master_statuses
 
-def create_user_config(user_email, from_user_id):
+def create_user_config(user_email, from_user_id, user_name=None):
     """
     Создание конфигурации пользователя
     """
-    ns_url, ns_secret = get_nightscout_config_by_email(user_email)
-    
+    ns_url, ns_secret = get_nightscout_config_by_email(user_email, user_name, from_user_id)
+
     if not ns_url or not ns_secret:
         return None
-    
-    config_key = normalize_email_key(user_email) or f"user_{from_user_id}"
+
+    config_key = normalize_email_key(user_email) or user_name or str(from_user_id)
     
     user_config = {
         'email': user_email,
@@ -524,7 +531,7 @@ def process_user_wrapper(user_info):
     """
     Обертка для обработки пользователя в потоке
     """
-    user_config = create_user_config(user_info['email'], user_info['fromUserId'])
+    user_config = create_user_config(user_info['email'], user_info['fromUserId'], user_info.get('userName'))
     
     if not user_config:
         print(f"[WARNING] Пользователь {user_info['email']} не настроен")
@@ -559,11 +566,14 @@ def process_all_users_optimized():
     configured_users = []
     for user in all_users:
         email = extract_clean_email(user['email']) or user['email']
-        ns_url, ns_secret = get_nightscout_config_by_email(email)
+        user_name = user.get('userName', '')
+        user_id = user['fromUserId']
+        ns_url, ns_secret = get_nightscout_config_by_email(email, user_name, user_id)
         if ns_url and ns_secret:
             configured_users.append({
                 'email': email,
-                'fromUserId': user['fromUserId']
+                'fromUserId': user_id,
+                'userName': user_name,
             })
     
     print(f"\n[INFO] Настроено пользователей: {len(configured_users)}")
@@ -572,14 +582,18 @@ def process_all_users_optimized():
         print("\n💡 ДОБАВЬТЕ ПЕРЕМЕННЫЕ ОКРУЖЕНИЯ:")
         print("   Для каждого пользователя нужно добавить две переменные:")
         print()
-        
+
         for master in master_statuses:
             if not master['configured']:
-                print(f"   Для пользователя '{master['email']}':")
-                normalized_key = normalize_email_key(master['clean_email'] or master['email'])
-                if normalized_key:
-                    print(f"   NS_URL__{normalized_key}=https://ваш_nightscout.herokuapp.com")
-                    print(f"   NS_SECRET__{normalized_key}=ваш_секрет")
+                label = master['clean_email'] or master['email'] or master['user_name'] or str(master['user_id'])
+                print(f"   Для пользователя '{label}':")
+                # Ключ: email → userName → userId
+                key = normalize_email_key(master['clean_email'] or master['email']) \
+                      or master['user_name'] \
+                      or str(master['user_id'])
+                if key:
+                    print(f"   NS_URL__{key}=https://ваш_nightscout.herokuapp.com")
+                    print(f"   NS_SECRET__{key}=ваш_секрет")
                 print()
         return
     

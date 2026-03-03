@@ -82,17 +82,28 @@ def extract_clean_email(email_string):
     
     return email_string.lower()
 
-def get_nightscout_config_by_email(user_email):
-    """Получение конфигурации Nightscout для email"""
-    if not user_email:
-        return None, None
-    
+def get_nightscout_config_by_email(user_email, user_name=None, user_id=None):
+    """Получение конфигурации Nightscout. Fallback-цепочка: email → userName → fromUserId"""
     configs = get_all_nightscout_configs()
-    user_key = normalize_email_key(user_email)
-    
-    if user_key and user_key in configs:
-        return configs[user_key]
-    
+
+    # 1. По email
+    if user_email:
+        user_key = normalize_email_key(user_email)
+        if user_key and user_key in configs:
+            return configs[user_key]
+
+    # 2. По userName
+    if user_name:
+        user_key = re.sub(r'[^a-z0-9_]', '_', user_name.lower())
+        if user_key and user_key in configs:
+            return configs[user_key]
+
+    # 3. По fromUserId
+    if user_id:
+        user_key = str(user_id)
+        if user_key in configs:
+            return configs[user_key]
+
     return None, None
 
 def get_all_nightscout_configs():
