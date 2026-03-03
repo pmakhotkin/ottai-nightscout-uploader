@@ -10,10 +10,8 @@ services:
     environment:
       PYTHONUNBUFFERED: 1
       OTTAI_BASE_URL:
-      OTTAI_TOKEN: OTTAI_TOKEN_REMOVED
+      OTTAI_TOKEN:
       NS_URL:
       NS_API_SECRET:
-      HOURS_AGO: 5
-      NS_URL__user049395: NS_URL_REMOVED
-      NS_SECRET__user049395: NS_SECRET_REMOVED
+      HOURS_AGO:
     command: python -u main.py
