@@ -7,8 +7,17 @@ services:
     build: .
     container_name: ottai-nightscout-uploader
     restart: always
-    env_file:
-      - .env
     environment:
       PYTHONUNBUFFERED: 1
+      OTTAI_TOKEN:
+      HOURS_AGO:
+      # Для Syai укажите: https://ru.syai.com
+      # Для Ottai оставьте пустым (используется https://seas.ottai.com)
+      OTTAI_BASE_URL:
+      # Если API не возвращает список пользователей, укажите ID фолловера
+      OTTAI_CUSTOMER_ID:
+      # Nightscout для каждого мастера: NS_URL__<ключ> и NS_SECRET__<ключ>
+      # Ключ — email до @, userName или fromUserId (скрипт подскажет при запуске)
+      # NS_URL__<ключ>:
+      # NS_SECRET__<ключ>:
     command: python -u main.py
