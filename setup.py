@@ -7,6 +7,7 @@ import re
 import base64
 import json
 import warnings
+from urllib.parse import urlparse
 
 # Подавляем предупреждения SSL
 warnings.filterwarnings('ignore', message='Unverified HTTPS request')
@@ -138,7 +139,8 @@ def get_all_nightscout_configs_display():
 
 # ========== БАЗОВЫЕ ЗАГОЛОВКИ OTTAI ==========
 def get_common_ottai_headers():
-    """Создание базовых заголовков Ottai"""
+    """Создание базовых заголовков Ottai/Syai"""
+    host = urlparse(CONFIG['ottai_base_url']).netloc or CONFIG['ottai_base_url']
     return {
         "authorization": CONFIG['ottai_token'],
         "user-agent": "Dart/3.8 (dart:io)",
@@ -154,7 +156,7 @@ def get_common_ottai_headers():
         "timezone": "10800",
         "region": "RU",
         "packagename": "com.ottai.share",
-        "host": "seas.ottai.com",
+        "host": host,
         "unit": "mmol_L",
         "timezonename": "MSK",
         "customerid": CONFIG['ottai_customerid'],

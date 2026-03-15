@@ -7,11 +7,8 @@ services:
     build: .
     container_name: ottai-nightscout-uploader
     restart: always
+    env_file:
+      - .env
     environment:
       PYTHONUNBUFFERED: 1
-      OTTAI_BASE_URL:
-      OTTAI_TOKEN:
-      NS_URL:
-      NS_API_SECRET:
-      HOURS_AGO:
     command: python -u main.py
