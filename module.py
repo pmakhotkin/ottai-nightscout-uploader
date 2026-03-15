@@ -17,7 +17,7 @@ if DISABLE_SSL_VERIFY:
 from setup import (
     HOURS_AGO, NS_UNIT_CONVERT,
     get_common_ottai_headers,
-    OTTAI_BASE_URL, DISABLE_SSL_VERIFY,
+    OTTAI_BASE_URL, OTTAI_CUSTOMERID, DISABLE_SSL_VERIFY,
     get_nightscout_config_by_email, extract_clean_email, normalize_email_key,
     get_all_nightscout_configs, get_all_nightscout_configs_display,
     get_hash_SHA1
@@ -99,20 +99,17 @@ def _get_all_users_from_ottai_raw():
         data = response.json()
         
         users = []
-        
+
+        # Формат 1: список пользователей в data.data (Ottai multiuser)
         if 'data' in data and isinstance(data['data'], list):
             for user_item in data['data']:
                 email = None
-                
                 for field in ['fromUserEmail', 'remark', 'email', 'userEmail']:
                     if field in user_item and user_item[field]:
                         email = user_item[field].strip()
                         break
-                
                 user_id = user_item.get('fromUserId') or user_item.get('id')
-                
                 user_name = user_item.get('userName') or ''
-
                 if user_id:
                     users.append({
                         'email': email or '',
@@ -120,7 +117,33 @@ def _get_all_users_from_ottai_raw():
                         'userName': user_name,
                         'raw_data': user_item
                     })
-        
+
+        # Формат 2: одиночный fromUserId в корне ответа или в data.data (Syai)
+        if not users:
+            single_id = None
+            if 'fromUserId' in data:
+                single_id = data['fromUserId']
+            elif 'data' in data and isinstance(data['data'], dict):
+                single_id = data['data'].get('fromUserId') or data['data'].get('id')
+
+            if single_id:
+                users.append({
+                    'email': '',
+                    'fromUserId': str(single_id),
+                    'userName': '',
+                    'raw_data': data
+                })
+
+        # Fallback: OTTAI_CUSTOMER_ID из переменной окружения
+        if not users and OTTAI_CUSTOMERID:
+            print(f"[INFO] Список пользователей пуст, используем OTTAI_CUSTOMER_ID={OTTAI_CUSTOMERID}")
+            users.append({
+                'email': '',
+                'fromUserId': OTTAI_CUSTOMERID,
+                'userName': '',
+                'raw_data': {}
+            })
+
         print(f"[INFO] Найдено пользователей: {len(users)}")
         return users
         
