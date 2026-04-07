@@ -22,7 +22,8 @@ def load_config():
     except KeyError:
         sys.exit("OTTAI_TOKEN required. Pass it as an Environment Variable.")
 
-    config['ottai_base_url'] = str(os.environ.get('OTTAI_BASE_URL', "https://seas.ottai.com"))
+    base_url = os.environ.get('OTTAI_BASE_URL', '').strip()
+    config['ottai_base_url'] = base_url if base_url else "https://seas.ottai.com"
     
     try:
         config['hours_ago'] = int(os.environ['HOURS_AGO'])
